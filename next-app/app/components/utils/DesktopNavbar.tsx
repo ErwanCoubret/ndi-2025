@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowDown, FaArrowRight } from "react-icons/fa6";
 
 const DesktopNavbar = ({ currentRoute }: { currentRoute: string }) => {
   const [isPresDropdownOpen, setIsPresDropdownOpen] = useState(false);
@@ -16,7 +17,8 @@ const DesktopNavbar = ({ currentRoute }: { currentRoute: string }) => {
         href={currentRoute === "/" ? "/#hero" : "/"}
         className={`flex justify-center items-center gap-2 text-slate-800 ml-4`}
       >
-        <p className="text-xl font-bold italic">NDIR / Nuit De L'info</p>
+        <Image src="/logo_nird.png" alt="NIRD Logo" width={25} height={25} />
+        <p className="text-xl font-bold italic">NIRD / Nuit De L'info</p>
       </Link>
 
       <ul
@@ -50,12 +52,12 @@ const DesktopNavbar = ({ currentRoute }: { currentRoute: string }) => {
         </li>
 
         <Link
-          href="https://dashboard.flots.app/"
-          className="bg-white border border-secondary-main text-blue-500 flex items-center justify-center px-6 py-2 rounded-full transform duration-300 hover:bg-blue-500 hover:text-white transition-all cursor-pointer group relative"
+          href="/#asso"
+          className="bg-white border border-secondary-main text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
         >
-          <FaArrowRight className="absolute right-2 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-5" />
+          <FaArrowDown className="absolute right-2 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-5" />
           <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
-            L'association
+            La démarche NIRD
           </span>
         </Link>
       </ul>

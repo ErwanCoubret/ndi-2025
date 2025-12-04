@@ -1,4 +1,4 @@
-import MineSwipperContent from "@/app/components/mine-swipper/ChatbotContent";
+import MineSwipperContent from "@/app/components/mine-swipper/MineSwipperContent";
 
 export default function MineSwipperPage() {
   return (

@@ -1,20 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { MdKeyboardArrowDown } from "react-icons/md";
 import { useState } from "react";
 
 const MobileNavbar = ({ currentRoute }: { currentRoute: string }) => {
   const [openMobileMenu, setOpenMobileMenu] = useState(false);
   const [hideMobileMenu, setHideMobileMenu] = useState(true);
-  const [openDropdown, setOpenDropdown] = useState<null | "pres" | "faq">(null);
 
   const closeMenu = () => {
     setHideMobileMenu(true);
+    setOpenMobileMenu(false);
     if (typeof window !== "undefined") {
       document.body.style.overflow = "auto"; // Restore body scroll
     }
-    setOpenDropdown(null);
   };
 
   return (
@@ -55,7 +54,7 @@ const MobileNavbar = ({ currentRoute }: { currentRoute: string }) => {
 
       {openMobileMenu && (
         <nav
-          className={`fixed right-0 lg:hidden w-screen h-screen text-blue-400 z-50 bg-white border-purple-400 border-l-3 ${
+          className={`fixed right-0 lg:hidden w-screen h-screen text-purple-400 z-50 bg-white border-purple-400 border-l-3 ${
             !hideMobileMenu
               ? "flex animate-navbarTranslateIn"
               : "animate-navbarTranslateOut"
@@ -67,7 +66,8 @@ const MobileNavbar = ({ currentRoute }: { currentRoute: string }) => {
               onClick={closeMenu}
               className="flex justify-center items-center font-bold  italic gap-2"
             >
-              <span className="text-xl">NDIR / Nuit De L'info</span>
+              <Image src="/logo_nird.png" alt="NIRD Logo" width={25} height={25} />
+              <span className="text-xl">NIRD / Nuit De L'info</span>
             </Link>
             <button
               className="w-10 h-10 flex items-center justify-center rounded-lg text-slate-800 bg-slate-100 cursor-pointer hover:bg-slate-200 transition-colors duration-300"
@@ -124,11 +124,11 @@ const MobileNavbar = ({ currentRoute }: { currentRoute: string }) => {
 
             <li>
               <Link
-                href="https://dashboard.flots.app/"
+                href="/#asso"
                 onClick={closeMenu}
                 className="flex items-center border border-secondary-main justify-center hover:bg-linear-to-r from-[#4751E3] via-[#8955E6] to-[#FD80E6] hover:text-white hover:scale-110 px-5 py-2 rounded-full w-full transition-transform"
               >
-                L'association
+                La démarche NIRD
               </Link>
             </li>
           </ul>

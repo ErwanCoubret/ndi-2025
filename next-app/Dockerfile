@@ -5,7 +5,8 @@ ENV TZ=Europe/Paris
 WORKDIR /frontend
 
 COPY package*.json ./
-RUN npm install
+RUN npm install pnpm -g
+RUN pnpm install
 
 COPY . .
 

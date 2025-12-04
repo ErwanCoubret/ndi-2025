@@ -2,11 +2,12 @@ services:
   fastapi:
     build: ./fastapi
     container_name: fastapi
-    command: python -m uvicorn fastapi.main:app --host 0.0.0.0 --port 8001 --reload
+    command: python -m uvicorn ndi2025.main:app --host 0.0.0.0 --port 8001 --reload
     volumes:
       - pg_data:/var/lib/postgresql/data
-      # - ./fastapi/data:/fastapi/data
-      # - ./fastapi/logs:/fastapi/logs
+      - ./fastapi/data:/fastapi/data
+      - ./backend/ndi2025/:/backend/ndi2025
+      - ./fastapi/logs:/fastapi/logs
     ports:
       # HOST:CONTAINER → FastAPI sur http://localhost:8001
       - "8001:8001"
@@ -16,9 +17,8 @@ services:
   next-app:
     build: ./next-app
     container_name: next-app
-    command: npm run start
+    command: pnpm dev --port 3001
     environment:
-      # Next.js écoutera sur le port 3001 dans le container
       - PORT=3001
     volumes:
       - ./next-app/src:/next-app/src

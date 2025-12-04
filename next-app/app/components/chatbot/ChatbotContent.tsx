@@ -1,4 +1,10 @@
 export default function ChatbotContent() {
+  // const response = await fetch("/api/chat", {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify(form),
+  // });
+
   return (
     <div className="w-full h-fit pb-1 px-1 lg:pb-3 lg:px-3">
       <div className="w-full h-full min-h-screen flex flex-col gap-5 items-center justify-center bg-slate-100 py-10 px-4 rounded xl:rounded-xl relative overflow-hidden">

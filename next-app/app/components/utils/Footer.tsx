@@ -6,11 +6,11 @@ export default function Footer() {
       <div className="w-full flex flex-col gap-8 lg:flex-row items-start justify-between">
         <div className="flex flex-col justify-start gap-1 w-50">
           <div className="flex items-center gap-2 text-slate-500">
-            <p className="text-xl font-bold italic">Babteam</p>
+            <p className="text-xl font-bold italic">Babteam sous NDI</p>
           </div>
 
           <p className="text-slate-500 font-light text-xs mb-2">
-            © 2024 Babteam. All rights reserved.
+            Une équipe 100% TPS
           </p>
         </div>
 
@@ -24,16 +24,12 @@ export default function Footer() {
             Chatbot
             <span className="absolute left-0 bottom-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full" />
           </Link>
-          <Link href={"/#features"} className="relative group w-fit">
+          <Link href={"/#snake"} className="relative group w-fit">
             Snake
             <span className="absolute left-0 bottom-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full" />
           </Link>
-          <Link href={"/#pricing"} className="relative group w-fit">
+          <Link href={"/#demineur"} className="relative group w-fit">
             Démineur
-            <span className="absolute left-0 bottom-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link href={"/team"} className="relative group w-fit">
-            L'association
             <span className="absolute left-0 bottom-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full" />
           </Link>
         </div>
@@ -42,14 +38,14 @@ export default function Footer() {
           <p
             className="relative font-bold italic group w-fit"
           >
-            L'association 
+            La démarche NIRD
           </p>
           <Link href={"/#asso"} className="relative group w-fit">
             Explication
             <span className="absolute left-0 bottom-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full" />
           </Link>
           <Link href={"https://nird.forge.apps.education.fr/"} target="_blank" className="relative group w-fit">
-            Site de l'asso
+            Site de NIRD
             <span className="absolute left-0 bottom-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full" />
           </Link>
         </div>

@@ -128,7 +128,7 @@ const MobileNavbar = ({ currentRoute }: { currentRoute: string }) => {
                 onClick={closeMenu}
                 className="flex items-center border border-secondary-main justify-center hover:bg-linear-to-r from-[#4751E3] via-[#8955E6] to-[#FD80E6] hover:text-white hover:scale-110 px-5 py-2 rounded-full w-full transition-transform"
               >
-                L'association
+                La démarche NIRD
               </Link>
             </li>
           </ul>

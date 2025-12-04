@@ -89,10 +89,10 @@ export default function HeroSection() {
             empreinte numérique et agir pour un futur numérique plus durable.
           </p>
 
-          <div className="flex w-full max-w-100 gap-3 mt-6 font-medium xl:text-lg">
+          <div className="flex max-w-100 gap-3 mt-6 font-medium xl:text-lg">
             <Link
               href="/#chatbot"
-              className="bg-white w-full text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
+              className="bg-white w-fit text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
             >
               <FaArrowDown className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
               <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
@@ -101,11 +101,11 @@ export default function HeroSection() {
             </Link>
             <Link
               href="/#asso"
-              className="bg-white w-full text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
+              className="bg-white w-fit text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
             >
               <FaArrowDown className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
               <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
-                L'association
+                L'association NIRD
               </span>
             </Link>
           </div>

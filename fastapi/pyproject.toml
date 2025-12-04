@@ -9,4 +9,8 @@ dependencies = [
     "python-dotenv>=1.2.1",
     "fastapi[standard]",
     "uvicorn",
+    "langchain",
+    "langchain-core",
+    "langchain-groq",
+    "pydantic[dotenv]",
 ]

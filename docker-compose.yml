@@ -6,7 +6,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
       - ./fastapi/data:/fastapi/data
-      - ./backend/ndi2025/:/backend/ndi2025
+      - ./fastapi/ndi2025/:/fastapi/ndi2025
       - ./fastapi/logs:/fastapi/logs
     ports:
       # HOST:CONTAINER → FastAPI sur http://localhost:8001

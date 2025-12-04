@@ -12,6 +12,7 @@ ClarifAI is a web application that allows users to learn with the help of AI. It
 To run the application, you need to set up the environment variables. Create a `.env` file in the root directory of the project and add the following variables:
 
 ```py
+GROQ_API_KEY="your-api-key"
 ```
 
 ## Easy Setup with Docker

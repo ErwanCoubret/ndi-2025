@@ -47,7 +47,7 @@ IMPORTANT : Ne jamais essayer d'utiliser des outils de recherche. Utilise unique
 llm = ChatGroq(
     model="openai/gpt-oss-20b",  # adapte si besoin
     temperature=0.3,
-    max_tokens=None,
+    max_tokens=10_000,
     timeout=None,
     max_retries=2,
 )

@@ -1,6 +1,4 @@
-import FlotsIcon from "@/public/FlotsIcon.svg";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -36,6 +34,22 @@ export default function Footer() {
           </Link>
           <Link href={"/team"} className="relative group w-fit">
             L'association
+            <span className="absolute left-0 bottom-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full" />
+          </Link>
+        </div>
+
+        <div className="flex flex-col text-slate-500 gap-1.5 w-50">
+          <p
+            className="relative font-bold italic group w-fit"
+          >
+            L'association 
+          </p>
+          <Link href={"/#asso"} className="relative group w-fit">
+            Explication
+            <span className="absolute left-0 bottom-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full" />
+          </Link>
+          <Link href={"https://nird.forge.apps.education.fr/"} target="_blank" className="relative group w-fit">
+            Site de l'asso
             <span className="absolute left-0 bottom-0 w-0 h-px bg-purple-400 transition-all duration-300 group-hover:w-full" />
           </Link>
         </div>

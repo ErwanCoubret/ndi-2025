@@ -1,47 +1,16 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { marked } from "marked";
-
-type ChatRole = "user" | "assistant" | "system";
-
-type ChatMessage = {
-  role: ChatRole;
-  content: string; // pour l'assistant, ce sera du HTML généré à partir de markdown
-};
-
-const quickTopics = [
-  {
-    label: "Classification",
-    prompt:
-      "Explique-moi ce qu'est la classification en apprentissage automatique, avec un exemple simple.",
-  },
-  {
-    label: "LLM",
-    prompt:
-      "Explique-moi ce qu'est un LLM (Large Language Model) et à quoi ça sert.",
-  },
-  {
-    label: "Réseaux de neurones",
-    prompt:
-      "Explique-moi le principe des réseaux de neurones artificiels, simplement.",
-  },
-  {
-    label: "NLP",
-    prompt:
-      "Explique-moi le traitement automatique du langage naturel (NLP) et un cas d’usage concret.",
-  },
-  {
-    label: "Vision par ordinateur",
-    prompt:
-      "Explique-moi le domaine de la vision par ordinateur, avec un exemple.",
-  },
-];
-
-// Optionnel : pour que les retours à la ligne soient gérés "à la GitHub"
-marked.setOptions({
-  breaks: true,
-});
+import {
+  ensureLocalGenerator,
+  generateLocalReply,
+  type LocalMessage,
+} from "../../llm-client/llm";
+import ChatMessages from "./ChatMessages";
+import QuickTopics from "./QuickTopics";
+import ChatControls from "./ChatControls";
+import { cleanAndConvertToHtml, toLocalHistory } from "./utils";
+import { ChatMessage } from "./types";
 
 export default function ChatbotContent() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -53,6 +22,9 @@ export default function ChatbotContent() {
   ]);
   const [input, setInput] = useState("");
   const [useCustomSystemPrompt, setUseCustomSystemPrompt] = useState(false);
+  const [useLocalLlm, setUseLocalLlm] = useState(false);
+  const [localModelReady, setLocalModelReady] = useState(false);
+  const [localModelError, setLocalModelError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
@@ -70,54 +42,83 @@ export default function ChatbotContent() {
     if (!trimmed || isLoading) return;
 
     const userMessage: ChatMessage = { role: "user", content: trimmed };
+
+    // On prend un snapshot local de l'historique
     const nextMessages = [...messages, userMessage];
 
     setMessages(nextMessages);
     setInput("");
     setIsLoading(true);
     setError(null);
+    setLocalModelError(null);
 
     try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: nextMessages,
-          systemPromptCustom: useCustomSystemPrompt ? 1 : 0,
-        }),
-      });
+      if (useLocalLlm) {
+        // Pré-chargement du modèle (pour afficher "charge..." puis "prêt")
+        try {
+          await ensureLocalGenerator();
+          setLocalModelReady(true);
+        } catch (err) {
+          console.error(err);
+          setLocalModelError("Impossible de charger le modèle local.");
+          throw err;
+        }
 
-      if (!res.ok) {
-        throw new Error(`HTTP error ${res.status}`);
+        const systemPrompt = useCustomSystemPrompt
+          ? "Tu es un chatbot loufoque. Réponds avec humour et concision."
+          : "Tu es un assistant pédago. Réponds en français clairement et brièvement.";
+
+        // On transforme l'historique en LocalMessage, en supprimant les balises HTML
+        const localHistory: LocalMessage[] = toLocalHistory(nextMessages);
+
+        const rawReply = await generateLocalReply(localHistory, systemPrompt);
+        const htmlReply = await cleanAndConvertToHtml(rawReply);
+
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: htmlReply,
+          },
+        ]);
+      } else {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            messages: nextMessages,
+            systemPromptCustom: useCustomSystemPrompt ? 1 : 0,
+          }),
+        });
+
+        if (!res.ok) {
+          throw new Error(`HTTP error ${res.status}`);
+        }
+
+        const data = (await res.json()) as { reply?: string } | string;
+
+        const rawReply =
+          typeof data === "string"
+            ? data
+            : data?.reply ??
+              "Je n'ai pas réussi à comprendre la réponse du serveur.";
+
+        const htmlReply = await cleanAndConvertToHtml(rawReply);
+
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: htmlReply,
+          },
+        ]);
       }
-
-      // On suppose que /api/chat renvoie du JSON { reply: "..." }
-      const data = (await res.json()) as { reply?: string } | string;
-
-      const rawReply =
-        typeof data === "string"
-          ? data
-          : data?.reply ?? "Je n'ai pas réussi à comprendre la réponse du serveur.";
-
-      // === Nettoyage + parsing markdown -> HTML ===
-      const cleanedReply = rawReply
-        .replace(/^"|"$/g, "") // Remove leading and trailing quotes
-        .replace(/\\n|\n/g, "\n") // Replace escaped newlines with actual newlines
-        .trim();
-
-      const htmlReply = await marked.parse(cleanedReply);
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: htmlReply, // ici on stocke l'HTML
-        },
-      ]);
     } catch (err) {
       console.error(err);
       setError(
-        "Impossible de contacter le chatbot. Vérifie que FastAPI tourne bien sur http://localhost:8001/chat."
+        useLocalLlm
+          ? "Erreur lors de la génération locale."
+          : "Impossible de contacter le chatbot. Vérifie que FastAPI tourne bien sur http://localhost:8001/chat."
       );
     } finally {
       setIsLoading(false);
@@ -176,12 +177,11 @@ export default function ChatbotContent() {
                           ? "bg-lime-400 text-black rounded-br-none border-lime-500 shadow-sm"
                           : "bg-purple-500 text-white rounded-br-none border-purple-500"
                         : isDumbMode
-                          ? "bg-gradient-to-r from-amber-50 via-pink-50 to-lime-50 text-amber-900 rounded-bl-none border-amber-200 shadow"
-                          : "bg-slate-100 text-slate-800 rounded-bl-none border-slate-200"
+                        ? "bg-gradient-to-r from-amber-50 via-pink-50 to-lime-50 text-amber-900 rounded-bl-none border-amber-200 shadow"
+                        : "bg-slate-100 text-slate-800 rounded-bl-none border-slate-200"
                     }`}
                   >
                     {msg.role === "assistant" ? (
-                      // On rend l'HTML généré à partir du markdown
                       <div
                         className="prose prose-sm max-w-none"
                         dangerouslySetInnerHTML={{ __html: msg.content }}
@@ -197,24 +197,11 @@ export default function ChatbotContent() {
 
             {/* Bubbles + input */}
             <div className="border-t border-slate-200 px-3 py-3 space-y-3">
-              {/* Bubbles de domaines IA */}
-              <div className="flex flex-wrap gap-2">
-                {quickTopics.map((topic) => (
-                  <button
-                    key={topic.label}
-                    type="button"
-                    disabled={isLoading}
-                    onClick={() => handleTopicClick(topic.prompt)}
-                    className={`text-xs md:text-sm px-3 py-1 rounded-full border transition disabled:opacity-60 disabled:cursor-not-allowed ${
-                      isDumbMode
-                        ? "border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100"
-                        : "border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-100"
-                    }`}
-                  >
-                    {topic.label}
-                  </button>
-                ))}
-              </div>
+              <QuickTopics
+                disabled={isLoading}
+                isDumbMode={isDumbMode}
+                onClickTopic={handleTopicClick}
+              />
 
               {error && (
                 <p className="text-xs text-red-500" role="alert">
@@ -223,54 +210,22 @@ export default function ChatbotContent() {
               )}
 
               {/* Zone de saisie */}
-              <form
+              <ChatControls
+                input={input}
+                onInputChange={setInput}
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-3 pt-1"
-              >
-                <div className="flex gap-3 items-end">
-                  <textarea
-                    rows={2}
-                    className={`flex-1 resize-none auto-grow rounded-xl border px-3 text-sm focus:outline-none focus:ring-2 transition ${
-                      isDumbMode
-                        ? "border-amber-300 focus:ring-amber-400 focus:border-amber-300 bg-white/80"
-                        : "border-slate-300 focus:ring-purple-400 focus:border-transparent"
-                    }`}
-                    placeholder="Écris ta question sur l'IA..."
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                  />
-
-                  <div className="flex flex-col items-end gap-2 min-w-[180px]">
-                    <div className="flex items-center justify-end gap-2 text-xs md:text-sm text-slate-700 mb-5 mt-[-3em]">
-                      <span className="font-medium">Chat'bruti</span>
-                      <label className="relative inline-flex h-6 w-11 items-center">
-                        <input
-                          type="checkbox"
-                          className="peer sr-only"
-                          checked={useCustomSystemPrompt}
-                          onChange={(e) => setUseCustomSystemPrompt(e.target.checked)}
-                          disabled={isLoading}
-                          aria-label="Activer le mode system prompt custom"
-                        />
-                        <span className="absolute inset-0 rounded-full bg-slate-300 transition peer-checked:bg-gradient-to-r peer-checked:from-amber-400 peer-checked:to-pink-500 peer-focus:ring-2 peer-focus:ring-offset-2 peer-focus:ring-purple-300" />
-                        <span className="absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition peer-checked:translate-x-5" />
-                      </label>
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isLoading || !input.trim()}
-                      className={`inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition disabled:opacity-60 disabled:cursor-not-allowed ${
-                        isDumbMode
-                          ? "bg-gradient-to-r from-amber-400 to-pink-500 text-white shadow-md hover:opacity-90"
-                          : "bg-purple-500 text-white hover:bg-purple-600"
-                      }`}
-                    >
-                      {isLoading ? "Envoi..." : "Envoyer"}
-                    </button>
-                  </div>
-                </div>
-              </form>
+                isLoading={isLoading}
+                isDumbMode={isDumbMode}
+                useLocalLlm={useLocalLlm}
+                localModelReady={localModelReady}
+                onToggleLocalLlm={(checked) => {
+                  setLocalModelError(null);
+                  setUseLocalLlm(checked);
+                }}
+                useCustomSystemPrompt={useCustomSystemPrompt}
+                onToggleCustomPrompt={setUseCustomSystemPrompt}
+                localModelError={localModelError}
+              />
             </div>
           </div>
         </div>

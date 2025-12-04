@@ -79,7 +79,7 @@ DUMB_PROMPT = (
 llm = ChatGroq(
     model="openai/gpt-oss-20b",  # adapte si besoin
     temperature=0.3,
-    max_tokens=10_000,
+    max_tokens=8_000,
     timeout=None,
     max_retries=2,
 )

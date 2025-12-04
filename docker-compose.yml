@@ -21,7 +21,7 @@ services:
     environment:
       - PORT=3001
     volumes:
-      - ./next-app/src:/next-app/src
+      - ./next-app/app:/next-app/app
       - ./next-app/public:/next-app/public
     ports:
       # HOST:CONTAINER → Next.js sur http://localhost:3001

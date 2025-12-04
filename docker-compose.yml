@@ -17,7 +17,7 @@ services:
   next-app:
     build: ./next-app
     container_name: next-app
-    command: pnpm dev --port 3001
+    command: pnpm dev --port 3001 --webpack
     environment:
       - PORT=3001
     volumes:

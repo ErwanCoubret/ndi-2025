@@ -28,7 +28,7 @@ export function Food({ position, imgPath }: FoodProps) {
                 fill
                 priority
                 unoptimized
-                className="rounded-full object-contain"
+                className="object-contain"
             />
         </div>
     );
@@ -51,7 +51,7 @@ export function Poison({ position, imgPath }: FoodProps) {
                 fill
                 priority
                 unoptimized
-                className="rounded-full object-contain"
+                className="object-contain"
             />
         </div>
     );

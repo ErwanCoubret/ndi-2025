@@ -32,13 +32,14 @@ export default function ChatbotContent() {
   const [localModelError, setLocalModelError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
+  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
   const isDumbMode = useCustomSystemPrompt;
 
+  // Scroll vers le bas quand les messages changent, mais seulement dans le conteneur
   useEffect(() => {
-    if (endOfMessagesRef.current) {
-      endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -191,7 +192,7 @@ export default function ChatbotContent() {
             }`}
           >
             {/* Zone des messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-3">
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
@@ -221,7 +222,6 @@ export default function ChatbotContent() {
                   </div>
                 </div>
               ))}
-              <div ref={endOfMessagesRef} />
             </div>
 
             {/* Bubbles + input */}

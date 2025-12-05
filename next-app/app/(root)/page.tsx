@@ -7,6 +7,7 @@ import MineSwipperSection from "../components/mine-swipper/MineSwipperSection";
 import SnakeSection from "../components/snake/SnakeSection";
 import { useEffect, useState } from "react";
 import ActivitySection from "../components/activity/ActivitySection";
+import WinSection from "../components/win/WinSection";
 
 export default function Home() {
   const [chatbotFlag, setChatbotFlag] = useState(false);
@@ -26,6 +27,14 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <HeroSection />
+      <WinSection
+        chatbotFlag={chatbotFlag}
+        snakeFlag={snakeFlag}
+        mineFlag={mineFlag}
+        setChatbotFlag={setChatbotFlag}
+        setSnakeFlag={setSnakeFlag}
+        setMineFlag={setMineFlag}
+      />
       <ActivitySection
         chatbotFlag={chatbotFlag}
         setChatbotFlag={setChatbotFlag}
@@ -34,9 +43,9 @@ export default function Home() {
         mineFlag={mineFlag}
         setMineFlag={setMineFlag}
       />
-      <ChatbotSection />
-      <SnakeSection />
-      <MineSwipperSection />
+      <ChatbotSection chatbotFlag={chatbotFlag} />
+      <SnakeSection snakeFlag={snakeFlag} />
+      <MineSwipperSection mineFlag={mineFlag} />
       <AssoSection />
     </div>
   );

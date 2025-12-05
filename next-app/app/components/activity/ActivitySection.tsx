@@ -16,6 +16,11 @@ export default function ActivitySection({
   mineFlag: boolean;
   setMineFlag: (flag: boolean) => void;
 }) {
+  // Calcul de la progression
+  const activities = [chatbotFlag, snakeFlag, mineFlag];
+  const completedCount = activities.filter(Boolean).length;
+  const progressPercentage = (completedCount / activities.length) * 100;
+
   return (
     <div className="relative w-full h-fit pb-1 px-1 lg:pb-3 lg:px-3 text-lg">
       <div id="activity" className="absolute -mt-20" />
@@ -40,6 +45,23 @@ export default function ActivitySection({
             libre et responsable.
           </p>
         </div>
+
+        {/* --- Barre de progression --- */}
+        <div className="w-full max-w-[300px] flex flex-col gap-2">
+          <div className="flex justify-between text-sm font-bold text-slate-600">
+            <span>Progression</span>
+            <span>
+              {completedCount} / {activities.length}
+            </span>
+          </div>
+          <div className="w-full h-4 bg-slate-300 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-green-500 transition-all duration-500 ease-out rounded-full"
+              style={{ width: `${progressPercentage}%` }}
+            />
+          </div>
+        </div>
+        {/* ----------------------------- */}
 
         <div className="flex flex-col items-center gap-3">
           <div

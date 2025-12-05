@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ChatMessage } from "./types";
 
 type Props = {
   messages: ChatMessage[];
   isDumbMode: boolean;
-  endOfMessagesRef: React.RefObject<HTMLDivElement>;
 };
 
-export default function ChatMessages({ messages, isDumbMode, endOfMessagesRef }: Props) {
+export default function ChatMessages({ messages, isDumbMode }: Props) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll vers le bas quand les messages changent, mais seulement dans le conteneur
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
-    <div className="flex-1 overflow-y-auto p-4 space-y-3">
+    <div ref={containerRef} className="flex-1 overflow-y-auto p-4 space-y-3">
       {messages.map((msg, idx) => (
         <div
           key={idx}
@@ -37,7 +45,6 @@ export default function ChatMessages({ messages, isDumbMode, endOfMessagesRef }:
           </div>
         </div>
       ))}
-      <div ref={endOfMessagesRef} />
     </div>
   );
 }

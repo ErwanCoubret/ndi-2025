@@ -25,7 +25,7 @@ export default function QuickTopics({
           type="button"
           disabled={disabled}
           onClick={() => onClickTopic(topic.label, topic.prompt)}
-          className={`text-xs md:text-sm px-3 py-1 rounded-full border transition cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
+          className={`text-base px-3 py-1 rounded-full border transition cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
             isSelectedTopic(topic.label, labelsSelectedTopics)
               ? "border-green-400 bg-green-100 text-green-800 cursor-default"
               : isDumbMode

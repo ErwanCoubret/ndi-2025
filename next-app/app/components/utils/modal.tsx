@@ -38,10 +38,10 @@ const Modal = ({ showModal, setShowModal, title, children, showCloseButton = fal
   return (
     <>
       {showModal ? (
-        <div className="fixed inset-0 flex items-center justify-center z-50 p-4 sm:p-6">
+        <div className="fixed inset-0 w-screen flex items-center justify-center z-50 p-4 sm:p-6">
           {/* Backdrop avec blur */}
           <div 
-            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300" 
+            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300 w-screen" 
             onClick={() => setShowModal(false)}
           />
           

@@ -151,7 +151,7 @@ export default function ChatControls({
         <div className="flex gap-3 w-full items-end">
           <div className="flex flex-col w-full items-end gap-2 min-w-[210px]">
             <div className="flex gap-4">
-              <div className="flex flex-wrap items-center justify-end gap-2 text-xs md:text-sm text-slate-700">
+              <div className="flex flex-wrap items-center justify-end gap-2 text-base text-slate-700">
                 <span className="font-medium">Local LLM</span>
                 {useLocalLlm && !localModelReady && !localModelError && (
                   <span
@@ -176,7 +176,7 @@ export default function ChatControls({
                 </label>
               </div>
 
-              <div className="flex items-center justify-end gap-2 text-xs md:text-sm text-slate-700">
+              <div className="flex items-center justify-end gap-2 text-base text-slate-700">
                 <span className="font-medium">Chat&apos;bruti</span>
                 <label className="relative inline-flex h-6 w-11 items-center">
                   <input

@@ -31,9 +31,12 @@ export default function SnakeSection({ snakeFlag }: { snakeFlag: boolean }) {
   };
 
   return (
-    <div id="snake" className="relative w-full h-fit pb-1 px-1 lg:pb-3 lg:px-3 overflow-hidden">
+    <div
+      id="snake"
+      className="relative w-full h-fit pb-1 px-1 lg:pb-3 lg:px-3 overflow-hidden"
+    >
       <div className="w-full h-full min-h-[70vh] flex flex-col gap-5 items-center justify-center bg-slate-100 py-10 px-4 rounded xl:rounded-xl relative overflow-hidden">
-<div
+        <div
           className={`py-2 px-4 w-fit rounded-full border hover:rotate-2 hover:scale-105 transition-transform duration-300 flex items-center ${
             snakeFlag
               ? "border-green-500 bg-green-100"
@@ -47,8 +50,7 @@ export default function SnakeSection({ snakeFlag }: { snakeFlag: boolean }) {
             </>
           ) : (
             <>
-              <ImCross className="text-red-500 mr-2 opacity-70" />
-              À faire
+              <ImCross className="text-red-500 mr-2 opacity-70" />À faire
             </>
           )}
         </div>
@@ -57,9 +59,17 @@ export default function SnakeSection({ snakeFlag }: { snakeFlag: boolean }) {
           Snake face aux dilemmes !!! 🐍🐍🐍
         </p>
 
-        <img src="/emojis/snake.png" alt="snake" className="w-[20rem] opacity-10 lg:opacity-20 left-30 rotate-20 absolute" />
+        <img
+          src="/emojis/snake.png"
+          alt="snake"
+          className="w-[20rem] opacity-10 lg:opacity-20 left-30 rotate-20 absolute"
+        />
 
-        <img src="/emojis/balance-scale.png" alt="balance" className="w-[15rem] opacity-0 lg:opacity-15 right-30 top-8 -rotate-20 absolute" />
+        <img
+          src="/emojis/balance-scale.png"
+          alt="balance"
+          className="w-[15rem] opacity-0 lg:opacity-15 right-30 top-8 -rotate-20 absolute"
+        />
 
         <p className="text-center text-slate-500 font-medium max-w-2xl">
           Le jeu est malheureusement bloqué :({" "}
@@ -98,7 +108,12 @@ export default function SnakeSection({ snakeFlag }: { snakeFlag: boolean }) {
         )}
       </div>
 
-      <Modal showModal={showModal} setShowModal={setShowModal} title={modalTitle} showCloseButton={true}>
+      <Modal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        title={modalTitle}
+        showCloseButton={true}
+      >
         <p className="text-slate-600 text-center">{modalMessage}</p>
       </Modal>
     </div>

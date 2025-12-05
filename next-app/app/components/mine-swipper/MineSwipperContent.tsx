@@ -296,7 +296,7 @@ export default function MineSwipperSection() {
           <h1 className="text-xl md:text-2xl font-bold text-purple-400 mb-1">
             💣 TimeBomb
           </h1>
-          <p className="text-slate-500 text-xs md:text-sm text-center max-w-md">
+          <p className="text-slate-500 text-base text-center max-w-md">
             Déminez l&apos;obsolescence programmée
           </p>
         </div>
@@ -307,13 +307,13 @@ export default function MineSwipperSection() {
           className="flex items-center gap-2 mx-auto mb-3 px-3 py-1.5 rounded-full bg-white border border-purple-200 text-slate-500 hover:text-purple-400 hover:border-purple-400 transition-all duration-300 group text-sm"
         >
           <RiInformation2Line className="text-lg group-hover:rotate-12 transition-transform" />
-          <span className="text-xs font-medium">Comment jouer ?</span>
+          <span className="text-base font-medium">Comment jouer ?</span>
         </button>
 
         {/* Bouton Toggle Mode Flag (Mobile) */}
         <button
           onClick={() => setFlagMode(!flagMode)}
-          className={`flex items-center gap-2 mx-auto mb-3 px-3 py-1.5 rounded-full border text-xs font-medium transition-all duration-300 ${
+          className={`flex items-center gap-2 mx-auto mb-3 px-3 py-1.5 rounded-full border text-base font-medium transition-all duration-300 ${
             flagMode
               ? "bg-green-50 border-green-400 text-green-600"
               : "bg-white border-slate-200 text-slate-500 hover:border-slate-300"
@@ -415,7 +415,7 @@ export default function MineSwipperSection() {
           <div className="flex flex-col gap-4 items-center">
             <div className="flex flex-col items-center gap-1 px-8 py-4 bg-slate-50 rounded-2xl border border-slate-200">
               <FaClock className="text-purple-400 text-2xl mb-1" />
-              <span className="text-xs text-slate-400 uppercase tracking-wide">
+              <span className="text-base text-slate-400 uppercase tracking-wide">
                 Temps
               </span>
               <span className="font-mono text-slate-700 font-bold text-2xl">
@@ -461,7 +461,7 @@ export default function MineSwipperSection() {
           <div className="flex flex-col gap-4 items-center">
             <div className="flex flex-col items-center gap-1 px-8 py-4 bg-slate-50 rounded-2xl border border-slate-200">
               <FaFlag className="text-green-500 text-2xl mb-1" />
-              <span className="text-xs text-slate-400 uppercase tracking-wide">
+              <span className="text-base text-slate-400 uppercase tracking-wide">
                 Drapeaux
               </span>
               <span className="font-mono text-slate-700 font-bold text-2xl">

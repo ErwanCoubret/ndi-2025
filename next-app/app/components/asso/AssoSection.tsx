@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaGlobe, FaVideo } from "react-icons/fa6";
 
 export default function AssoSection() {
   return (
@@ -59,16 +59,29 @@ export default function AssoSection() {
           captifs.
         </p>
 
+      <div className="flex gap-4">
         <Link
           href="https://nird.forge.apps.education.fr/"
           target="_blank"
           className="bg-white w-fit text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
         >
-          <FaArrowRight className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
+          <FaGlobe className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
           <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
             Site de la démarche NIRD 
           </span>
         </Link>
+
+        <Link
+          href="https://tube-numerique-educatif.apps.education.fr/w/pZCnzPKTYX2iF38Qh4ZGmq"
+          target="_blank"
+          className="bg-white w-fit text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
+        >
+          <FaVideo className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
+          <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
+            Vidéo de présentation NIRD 
+          </span>
+        </Link>
+      </div>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ import {
 import Rectangle from "./rectangle";
 import Modal from "../utils/modal";
 import { RiInformation2Line } from "react-icons/ri";
-import { FaClock, FaRecycle, FaSkull, FaTrophy } from "react-icons/fa";
+import { FaClock, FaFlag, FaPlay, FaRecycle, FaSkull, FaTrophy } from "react-icons/fa";
 
 const DEM_CASE = "/demineur/DemCase.png";
 const DEM_FLAG = "/demineur/DemFlag.png";
@@ -33,7 +33,7 @@ const DEM_NUMBERS = [
 export default function MineSwipperSection() {
 	const rows = 5;
 	const cols = 5;
-	const bombs = 2;
+	const bombs = 4;
 	const [cellSize, setCellSize] = useState((16 / rows) * 50);
 
 	const [cellImages, setCellImages] = useState(
@@ -287,10 +287,10 @@ export default function MineSwipperSection() {
 				{/* Header avec titre et info */}
 				<div className="flex flex-col items-center mb-3">
 					<h1 className="text-xl md:text-2xl font-bold text-purple-400 mb-1">
-						🌊 MarineSweeper
+						💣 TimeBomb
 					</h1>
 					<p className="text-slate-500 text-xs md:text-sm text-center max-w-md">
-						Nettoyez l&apos;océan numérique des déchets électroniques
+						Déminez l&apos;obsolescence programmée
 					</p>
 				</div>
 
@@ -310,7 +310,7 @@ export default function MineSwipperSection() {
 						<span className="font-mono text-slate-700 font-medium text-sm">{formatTime(time)}</span>
 					</div>
 					<div className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 rounded-full border border-slate-200">
-						<FaRecycle className="text-green-500 text-sm" />
+						<FaFlag className="text-green-500 text-sm" />
 						<span className="font-mono text-slate-700 font-medium text-sm">{flagCount} / {bombs}</span>
 					</div>
 				</div>
@@ -343,9 +343,9 @@ export default function MineSwipperSection() {
 				<div className="flex justify-center mt-4">
 					<button
 						onClick={handleReset}
-						className="bg-white w-fit text-purple-400 flex items-center justify-center px-5 py-1.5 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer font-medium text-sm border border-purple-200"
+						className="bg-purple-400 w-fit text-white flex items-center justify-center px-5 py-1.5 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-500 transition-all cursor-pointer font-medium text-sm shadow-md shadow-purple-200"
 					>
-						<FaRecycle className="mr-2" />
+						<FaPlay className="mr-2" />
 						Rejouer
 					</button>
 				</div>
@@ -371,11 +371,11 @@ export default function MineSwipperSection() {
 				<div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
 					<div className="flex items-center gap-4">
 						<h1 className="text-3xl font-bold text-purple-400">
-							🌊 MarineSweeper
+							💣 TimeBomb
 						</h1>
 						<span className="text-slate-400">|</span>
 						<p className="text-slate-500">
-							Nettoyez l&apos;océan numérique des déchets électroniques
+							Déminez l&apos;obsolescence programmée
 						</p>
 					</div>
 					<button
@@ -389,18 +389,20 @@ export default function MineSwipperSection() {
 
 				{/* Contenu principal */}
 				<div className="flex items-center justify-center gap-12 flex-1">
-					{/* Panneau Stats à gauche */}
+					{/* Panneau Stats à gauche - Temps */}
 					<div className="flex flex-col gap-4 items-center">
 						<div className="flex flex-col items-center gap-1 px-8 py-4 bg-slate-50 rounded-2xl border border-slate-200">
 							<FaClock className="text-purple-400 text-2xl mb-1" />
 							<span className="text-xs text-slate-400 uppercase tracking-wide">Temps</span>
 							<span className="font-mono text-slate-700 font-bold text-2xl">{formatTime(time)}</span>
 						</div>
-						<div className="flex flex-col items-center gap-1 px-8 py-4 bg-slate-50 rounded-2xl border border-slate-200">
-							<FaRecycle className="text-green-500 text-2xl mb-1" />
-							<span className="text-xs text-slate-400 uppercase tracking-wide">Drapeaux</span>
-							<span className="font-mono text-slate-700 font-bold text-2xl">{flagCount} / {bombs}</span>
-						</div>
+						{/* Message Game Over à gauche */}
+						{gameOver && (
+							<div className="flex flex-col items-center gap-2 p-4 bg-red-50 rounded-2xl border border-red-200 text-red-500 animate-pulse">
+								<FaSkull className="text-2xl" />
+								<span className="font-semibold text-center text-sm">Game Over !</span>
+							</div>
+						)}
 					</div>
 
 					{/* Grille centrale */}
@@ -427,25 +429,16 @@ export default function MineSwipperSection() {
 						</div>
 					</div>
 
-					{/* Panneau Actions à droite */}
-					<div className="flex flex-col gap-4 items-center min-w-[160px]">
-						<button
-							onClick={handleReset}
-							className="w-full bg-purple-400 text-white flex items-center justify-center px-6 py-3 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-500 transition-all cursor-pointer font-medium shadow-lg shadow-purple-200"
-						>
-							<FaRecycle className="mr-2" />
-							Rejouer
-						</button>
-
-						{/* Messages */}
-						{gameOver && (
-							<div className="flex flex-col items-center gap-2 p-4 bg-red-50 rounded-2xl border border-red-200 text-red-500 animate-pulse w-full">
-								<FaSkull className="text-2xl" />
-								<span className="font-semibold text-center text-sm">Game Over !</span>
-							</div>
-						)}
+					{/* Panneau Stats à droite - Drapeaux */}
+					<div className="flex flex-col gap-4 items-center">
+						<div className="flex flex-col items-center gap-1 px-8 py-4 bg-slate-50 rounded-2xl border border-slate-200">
+							<FaFlag className="text-green-500 text-2xl mb-1" />
+							<span className="text-xs text-slate-400 uppercase tracking-wide">Drapeaux</span>
+							<span className="font-mono text-slate-700 font-bold text-2xl">{flagCount} / {bombs}</span>
+						</div>
+						{/* Message Victoire à droite */}
 						{gamewin && (
-							<div className="flex flex-col items-center gap-2 p-4 bg-green-50 rounded-2xl border border-green-200 text-green-500 animate-pulse w-full">
+							<div className="flex flex-col items-center gap-2 p-4 bg-green-50 rounded-2xl border border-green-200 text-green-500 animate-pulse">
 								<FaTrophy className="text-2xl" />
 								<span className="font-semibold text-center text-sm">Victoire !</span>
 							</div>
@@ -453,12 +446,15 @@ export default function MineSwipperSection() {
 					</div>
 				</div>
 
-				{/* Footer */}
-				<div className="mt-6 pt-4 border-t border-slate-100 text-center">
-					<p className="flex items-center justify-center gap-2 text-slate-400 text-sm">
-						<span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-						Système actif — Recyclage en cours...
-					</p>
+				{/* Footer avec bouton Rejouer */}
+				<div className="mt-6 pt-4 border-t border-slate-100 flex justify-center">
+					<button
+						onClick={handleReset}
+						className="bg-purple-400 text-white flex items-center justify-center px-8 py-3 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-500 transition-all cursor-pointer font-medium shadow-lg shadow-purple-200"
+					>
+						<FaPlay className="mr-2" />
+						Rejouer
+					</button>
 				</div>
 			</div>
 
@@ -467,36 +463,28 @@ export default function MineSwipperSection() {
 				<Modal
 					showModal={rule}
 					setShowModal={setRule}
-					title={"🎮 Règles du MarineSweeper"}
+					title={"🎮 Règles de TimeBomb"}
 				>
 					<div className="space-y-3 text-slate-600 text-sm">
 						<div className="flex items-start gap-2 p-2 bg-slate-100 rounded-lg">
 							<span className="text-xl">🎯</span>
-							<p>Découvrez toutes les cases sans cliquer sur les déchets électroniques.</p>
+							<p>Révélez toutes les cases sans tomber sur les pièges de l&apos;obsolescence programmée cachés par les fabricants.</p>
 						</div>
 						<div className="flex items-start gap-2 p-2 bg-slate-100 rounded-lg">
 							<span className="text-xl">🔢</span>
-							<p>Chaque chiffre indique combien de déchets se trouvent dans les cases adjacentes.</p>
+							<p>Chaque chiffre indique combien de pièges d&apos;obsolescence se cachent dans les cases adjacentes.</p>
 						</div>
 						<div className="flex items-start gap-2 p-2 bg-slate-100 rounded-lg">
 							<span className="text-xl">🚩</span>
-							<p>Clic droit pour marquer une case suspecte avec un drapeau.</p>
+							<p>Clic droit pour signaler une pratique d&apos;obsolescence programmée avec un drapeau.</p>
 						</div>
 						<div className="flex items-start gap-2 p-2 bg-purple-50 rounded-lg border border-purple-200">
 							<span className="text-xl">♻️</span>
-							<p className="text-purple-600">Révélez toutes les cases sûres pour gagner !</p>
+							<p className="text-purple-600">Identifiez tous les pièges pour prolonger la durée de vie de vos appareils !</p>
 						</div>
 					</div>
 				</Modal>
 			)}
-
-			{/* Footer mobile uniquement */}
-			<div className="lg:hidden mt-3 text-center text-slate-500 text-xs">
-				<p className="flex items-center justify-center gap-2">
-					<span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-					Système actif — Recyclage en cours...
-				</p>
-			</div>
 		</div>
 	);
 }

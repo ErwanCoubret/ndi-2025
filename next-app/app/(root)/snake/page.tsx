@@ -33,7 +33,7 @@ export default function SnakePage() {
   }, [gameState]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-100 p-4">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-100 p-4 overflow-x-hidden">
       <h1 className="mb-4 text-xl sm:text-2xl md:text-4xl font-bold text-purple-400 mt-20 md:mt-40 text-center px-2">
         🐍 Débarassez-vous de toutes les mauvaises pratiques !
       </h1>

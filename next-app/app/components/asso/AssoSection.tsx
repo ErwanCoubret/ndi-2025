@@ -33,29 +33,29 @@ export default function AssoSection() {
         </div>
 
         <p className="text-slate-500 max-w-250">
-          Nous faisons face à un système puissant qui impose un matériel rendu
+          Nous faison<span className="font-bold text-purple-500">s</span> face à un système puissant qui impose un matériel rendu
           obsolète alors qu’il est encore fonctionnel, des licences coûteuses,
-          un stockage de données hors de l'Union Européenne et des écosystèmes
+          un stockage de donné<span className="font-bold text-purple-500">e</span>s hors de l'Union Européenne et des écosystèmes
           fermés qui enferment les utilisateurs. Face à ce "Goliath" numérique,
-          l'École a le devoir et la capacité de devenir un village résistant,
+          l'École a le devoi<span className="font-bold text-purple-500">r</span> et la capacité de devenir un village résistant,
           ingénieux et autonome, en refusant la fatalité du gaspillage et de la
           surveillance.
         </p>
 
         <p className="text-slate-500 max-w-250">
           La démarche NIRD (Numérique Inclusif, Responsable et Durable) incarne
-          cette ambition de résistance constructive. Elle vise à permettre aux
+          cette ambition de résistance constructive. Elle vise à <span className="font-bold text-purple-500">p</span>ermettre aux
           établissements scolaires d’adopter progressivement des solutions
-          libres pour redonner du pouvoir d’agir aux équipes éducatives. En
+          libres pour redonn<span className="font-bold text-purple-500">e</span>r du pouvoir d’agir aux équipes éducatives. En
           remplaçant les systèmes propriétaires par Linux et en favorisant le
           reconditionnement, nous luttons concrètement contre l'obsolescence
           programmée.
         </p>
 
         <p className="text-slate-500 max-w-250">
-          C'est une approche globale qui ne se limite pas à la technique, mais
+          C'est une approche globale qui ne se limite pas à la tech<span className="font-bold text-purple-500">n</span>ique, mais
           qui englobe une dimension éthique et écologique, permettant de former
-          des citoyens numériques éclairés plutôt que de simples consommateurs
+          des citoyens numériques éclairés plutô<span className="font-bold text-purple-500">t</span> que de simples consommateurs
           captifs.
         </p>
 

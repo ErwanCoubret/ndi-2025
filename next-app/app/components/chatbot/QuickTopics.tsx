@@ -1,4 +1,3 @@
-import React from "react";
 import { quickTopics } from "./utils";
 
 type Props = {
@@ -16,7 +15,7 @@ export default function QuickTopics({ disabled, onClickTopic, isDumbMode }: Prop
           type="button"
           disabled={disabled}
           onClick={() => onClickTopic(topic.prompt)}
-          className={`text-xs md:text-sm px-3 py-1 rounded-full border transition disabled:opacity-60 disabled:cursor-not-allowed ${
+          className={`text-xs md:text-sm px-3 py-1 rounded-full border transition cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
             isDumbMode
               ? "border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100"
               : "border-purple-200 bg-purple-50 text-purple-700 hover:bg-purple-100"

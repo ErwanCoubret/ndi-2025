@@ -13,7 +13,7 @@ import {
 import { Poison } from "./components/Food";
 
 export default function SnakePage() {
-  const { snake, food, poison, score, gameState, resetGame, imageIndex, gameBoardRef } = useSnakeGame();
+  const { snake, food, poison, score, gameState, resetGame, imageIndex, gameBoardRef, direction } = useSnakeGame();
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-900 p-4">
@@ -23,7 +23,7 @@ export default function SnakePage() {
 
       <GameBoard ref={gameBoardRef}>
         <GameGrid />
-        <Snake segments={snake} />
+        <Snake segments={snake} direction={direction} />
         <Food position={food} imgPath={`/snake/image_${imageIndex}.png`} />
         <Poison position={poison} imgPath={`/snake/poison_${imageIndex}.png`} />
         <GameOverlay

@@ -79,7 +79,7 @@ export function GameOverlay({ gameState, score, onRestart }: GameOverlayProps) {
     if (gameState === "gameWon") {
     return (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80">
-            <p className="mb-2 text-3xl font-bold text-green-400">Félicitations, vous avez gagné !</p>
+            <p className="mb-4 text-3xl font-bold text-green-400">Félicitations, vous avez gagné !</p>
             <Link
               href="/"
               className="bg-white w-fit text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"

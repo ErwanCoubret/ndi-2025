@@ -14,6 +14,11 @@ const TOTAL_IMAGES = 6;
 
 // Preload all images at module load time
 const preloadImages = () => {
+  // Preload snake head
+  const headImg = new window.Image();
+  headImg.src = `/snake/snake_head.png`;
+  
+  // Preload food and poison images
   for (let i = 1; i <= TOTAL_IMAGES; i++) {
     const foodImg = new window.Image();
     foodImg.src = `/snake/image_${i}.png`;
@@ -36,6 +41,7 @@ export function useSnakeGame() {
   const [gameState, setGameState] = useState<GameState>("idle");
   const [score, setScore] = useState(0);
   const [imageIndex, setImageIndex] = useState(1);
+  const [direction, setDirection] = useState<Direction>(INITIAL_DIRECTION);
 
   // Preload images on first render
   useEffect(() => {
@@ -113,6 +119,7 @@ const generatePoison = useCallback((snakeBody: Position[], foodPosition: Positio
     setGameState("playing");
     setScore(0);
     setImageIndex(1);
+    setDirection(INITIAL_DIRECTION);
   }, [generateFood, generatePoison]);
 
   // Gestion des touches du clavier
@@ -255,13 +262,14 @@ const generatePoison = useCallback((snakeBody: Position[], foodPosition: Positio
     if (gameState !== "playing") return;
 
     const moveSnake = () => {
-      const direction = directionRef.current;
-      lastDirectionRef.current = direction;
+      const currentDirection = directionRef.current;
+      lastDirectionRef.current = currentDirection;
+      setDirection(currentDirection);
 
       const prevSnake = snake;
       const head = { ...prevSnake[0] };
 
-      switch (direction) {
+      switch (currentDirection) {
         case "UP":
           head.y -= 1;
           break;
@@ -346,5 +354,6 @@ const generatePoison = useCallback((snakeBody: Position[], foodPosition: Positio
     resetGame,
     imageIndex,
     gameBoardRef,
+    direction,
   };
 }

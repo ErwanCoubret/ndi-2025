@@ -3,10 +3,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
+import Modal from "../utils/modal";
 
 export default function SnakeSection() {
   const [inputValue, setInputValue] = useState("");
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -15,11 +19,14 @@ export default function SnakeSection() {
   const handleValidation = () => {
     if (inputValue.toLowerCase() === "serpent") {
       setIsUnlocked(true);
-      alert("Clé correcte ! Le jeu est débloqué.");
+      setModalTitle("🎉 Bravo !");
+      setModalMessage("Clé correcte ! Le jeu est débloqué.");
     } else {
       setIsUnlocked(false);
-      alert("Clé incorrecte. Veuillez réessayer.");
+      setModalTitle("❌ Erreur");
+      setModalMessage("Clé incorrecte. Veuillez réessayer.");
     }
+    setShowModal(true);
   };
 
   return (
@@ -73,6 +80,10 @@ export default function SnakeSection() {
           </Link>
         )}
       </div>
+
+      <Modal showModal={showModal} setShowModal={setShowModal} title={modalTitle}>
+        <p className="text-slate-600 text-center">{modalMessage}</p>
+      </Modal>
     </div>
   );
 }

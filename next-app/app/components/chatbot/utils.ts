@@ -6,27 +6,27 @@ export const quickTopics = [
   {
     label: "Classification",
     prompt:
-      "Explique-moi ce qu'est la classification en apprentissage automatique, avec un exemple simple.",
+      "Explique-moi la **Classification** en IA comme si je devais trier mes chaussettes ou mes emails. Utilise des emojis et donne un exemple concret (chat vs chien).",
   },
   {
-    label: "LLM",
+    label: "C'est quoi un LLM ?",
     prompt:
-      "Explique-moi ce qu'est un LLM (Large Language Model) et à quoi ça sert.",
+      "Explique-moi ce qu'est un **LLM** (comme toi) en utilisant l'analogie d'une bibliothèque géante ou d'un perroquet très intelligent. À quoi ça sert au quotidien ?",
   },
   {
     label: "Réseaux de neurones",
     prompt:
-      "Explique-moi le principe des réseaux de neurones artificiels, simplement.",
+      "Imagine que tu dois expliquer les **réseaux de neurones** à un enfant de 12 ans. Utilise l'image d'une équipe qui se passe des messages pour prendre une décision. Fais simple !",
   },
   {
-    label: "NLP",
+    label: "L'IA et les langues (NLP)",
     prompt:
-      "Explique-moi le traitement automatique du langage naturel (NLP) et un cas d’usage concret.",
+      "Comment l'ordinateur fait-il pour comprendre le langage humain (**NLP**) ? Explique-le avec l'exemple de la traduction automatique ou de Siri, sans utiliser de mots compliqués.",
   },
   {
     label: "Vision par ordinateur",
     prompt:
-      "Explique-moi le domaine de la vision par ordinateur, avec un exemple.",
+      "Comment un ordinateur peut-il 'voir' (**Vision par ordinateur**) ? Explique comment il reconnaît un visage sur une photo en découpant l'image en petits carrés (pixels).",
   },
 ];
 

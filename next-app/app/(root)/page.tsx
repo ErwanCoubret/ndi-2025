@@ -27,20 +27,20 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      <ActivitySection
-        chatbotFlag={chatbotFlag}
-        setChatbotFlag={setChatbotFlag}
-        snakeFlag={snakeFlag}
-        setSnakeFlag={setSnakeFlag}
-        mineFlag={mineFlag}
-        setMineFlag={setMineFlag}
-      />
       <WinSection
         chatbotFlag={chatbotFlag}
         snakeFlag={snakeFlag}
         mineFlag={mineFlag}
         setChatbotFlag={setChatbotFlag}
         setSnakeFlag={setSnakeFlag}
+        setMineFlag={setMineFlag}
+      />
+      <ActivitySection
+        chatbotFlag={chatbotFlag}
+        setChatbotFlag={setChatbotFlag}
+        snakeFlag={snakeFlag}
+        setSnakeFlag={setSnakeFlag}
+        mineFlag={mineFlag}
         setMineFlag={setMineFlag}
       />
       <ChatbotSection chatbotFlag={chatbotFlag} />

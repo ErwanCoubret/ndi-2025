@@ -29,12 +29,12 @@ export default function SnakeSection() {
           Snake face aux dilemmes !!! 🐍🐍🐍
         </p>
 
-        <span className="text-[20rem] opacity-0 lg:opacity-20 left-30 rotate-20 absolute">
+        <span className="text-[20rem] opacity-5 lg:opacity-20 left-30 rotate-20 absolute">
           🐍
         </span>
 
-        <span className="text-[15rem] opacity-15 right-30 top-8 -rotate-20 absolute">
-          🐍
+        <span className="text-[15rem] opacity-0 lg:opacity-15 right-30 top-8 -rotate-20 absolute">
+          ⚖️
         </span>
 
         <p className="text-center text-slate-500 font-medium max-w-2xl">

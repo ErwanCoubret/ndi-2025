@@ -8,7 +8,24 @@ export default function AssoSection() {
       <div id="asso" className="absolute -mt-20" />
 
       <div className="w-full h-full min-h-[70vh] flex flex-col gap-10 items-center justify-center bg-slate-100 py-20 px-4 rounded xl:rounded-xl relative overflow-hidden">
-        <h1 className="text-center text-3xl font-bold text-purple-400">
+        
+        <Image
+          src="/logo_nird.png"
+          alt="Logo NIRD"
+          width={400}
+          height={400}
+          className="absolute left-10 top-1/2 -translate-y-1/2 opacity-0 lg:opacity-10 -rotate-12"
+        />
+
+        <Image
+          src="/logo_nird.png"
+          alt="Logo NIRD"
+          width={300}
+          height={300}
+          className="absolute right-10 bottom-20 opacity-0 lg:opacity-10 rotate-12"
+        />
+
+        <h1 className="text-center text-3xl font-bold text-purple-400 z-10">
           La démarche NIRD
         </h1>
 

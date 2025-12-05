@@ -4,7 +4,7 @@ import { FaArrowRight } from "react-icons/fa6";
 
 export default function AssoSection() {
   return (
-    <div  className="relative w-full h-fit pb-1 px-1 lg:pb-3 lg:px-3">
+    <div  className="relative w-full h-fit pb-1 px-1 lg:pb-3 lg:px-3 text-lg">
       <div id="asso" className="absolute -mt-20" />
 
       <div className="w-full h-full min-h-[70vh] flex flex-col gap-10 items-center justify-center bg-slate-100 py-20 px-4 rounded xl:rounded-xl relative overflow-hidden">
@@ -27,7 +27,7 @@ export default function AssoSection() {
             height={300}
             className="rounded-lg"
           />
-          <span className="text-sm text-slate-500">
+          <span className="text-base text-slate-500">
             Image illustrative de la démarche NIRD, source: NIRD
           </span>
         </div>

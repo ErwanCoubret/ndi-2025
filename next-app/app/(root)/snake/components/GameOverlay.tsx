@@ -26,7 +26,7 @@ export function GameOverlay({ gameState, score, onRestart }: GameOverlayProps) {
   if (gameState === "gameOver") {
     return (
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80">
-        <p className="mb-2 text-3xl font-bold text-red-500">Game Over!</p>
+        <p className="mb-2 text-3xl font-bold text-red-500">Game Over !</p>
         <p className="mb-4 text-xl text-white">Score: {score}</p>
         <button
             onClick={onRestart}

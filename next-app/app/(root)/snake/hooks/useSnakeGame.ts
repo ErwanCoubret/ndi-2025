@@ -12,8 +12,15 @@ import {
 
 const TOTAL_IMAGES = 6;
 
+// Crée le serpent initial avec 3 segments
+const createInitialSnake = (): Position[] => [
+  INITIAL_SNAKE_POSITION,
+  { x: INITIAL_SNAKE_POSITION.x - 1, y: INITIAL_SNAKE_POSITION.y },
+  { x: INITIAL_SNAKE_POSITION.x - 2, y: INITIAL_SNAKE_POSITION.y },
+];
+
 export function useSnakeGame() {
-  const [snake, setSnake] = useState<Position[]>([INITIAL_SNAKE_POSITION]);
+  const [snake, setSnake] = useState<Position[]>(createInitialSnake());
   const [food, setFood] = useState<Position>({ x: 15, y: 15 });
   const [poison, setPoison] = useState<Position>({ x: 5, y: 5 });
   const [gameState, setGameState] = useState<GameState>("idle");
@@ -66,7 +73,7 @@ export function useSnakeGame() {
 
   // Réinitialise le jeu
   const resetGame = useCallback(() => {
-    const initialSnake = [INITIAL_SNAKE_POSITION];
+    const initialSnake = createInitialSnake();
     const newFood = generateFood(initialSnake);
     const newPoison = generatePoison(initialSnake, newFood);
     
@@ -292,7 +299,10 @@ export function useSnakeGame() {
           return newScore;
         });
         setImageIndex((prev) => (prev % TOTAL_IMAGES) + 1);
-        setSnake(newSnake); // Le serpent grandit (pas de pop)
+        // Le serpent grandit de 2
+        const lastSegment = newSnake[newSnake.length - 1];
+        newSnake.push({ ...lastSegment });
+        setSnake(newSnake);
       } else {
         newSnake.pop();
         setSnake(newSnake);

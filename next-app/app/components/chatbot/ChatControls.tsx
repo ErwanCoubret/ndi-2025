@@ -27,6 +27,7 @@ export default function ChatControls({
   localModelError,
 }: Props) {
   const [showLocalLlmModal, setShowLocalLlmModal] = useState(false);
+  const [showChatBrutiModal, setShowChatBrutiModal] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     // Entrée sans Shift envoie le message
@@ -40,10 +41,8 @@ export default function ChatControls({
 
   const handleLocalLlmToggle = (checked: boolean) => {
     if (checked) {
-      // Ouvrir le modal de confirmation avant d'activer
       setShowLocalLlmModal(true);
     } else {
-      // Désactiver directement sans confirmation
       onToggleLocalLlm(false);
     }
   };
@@ -51,6 +50,19 @@ export default function ChatControls({
   const confirmLocalLlm = () => {
     onToggleLocalLlm(true);
     setShowLocalLlmModal(false);
+  };
+
+  const handleChatBrutiToggle = (checked: boolean) => {
+    if (checked) {
+      setShowChatBrutiModal(true);
+    } else {
+      onToggleCustomPrompt(false);
+    }
+  };
+
+  const confirmChatBruti = () => {
+    onToggleCustomPrompt(true);
+    setShowChatBrutiModal(false);
   };
 
   return (
@@ -95,6 +107,45 @@ export default function ChatControls({
         </div>
       )}
 
+      {/* Modal de confirmation pour Chat'Bruti */}
+      {showChatBrutiModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
+          <div 
+            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300" 
+            onClick={() => setShowChatBrutiModal(false)}
+          />
+          <div className="relative z-10 w-full max-w-md animate-modal-in">
+            <div className="relative bg-white rounded-2xl shadow-2xl border border-amber-200 overflow-hidden">
+              <div className="px-6 py-5">
+                <h3 className="text-lg font-bold text-slate-800 mb-3">
+                  🤪 Activer Chat&apos;Bruti ?
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Le mode Chat'Bruti a pour but de rendre les réponses du chatbot complètement décalées et absurdes, avec une touche d'humour. N'écoutez pas ses conseils !
+                </p>
+                <p className="text-sm text-slate-500 mt-2">
+                  Êtes-vous sûr de vouloir continuer ?
+                </p>
+              </div>
+              <div className="px-6 py-4 bg-slate-50 border-t border-slate-100 flex gap-3">
+                <button
+                  className="flex-1 py-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-600 font-medium border border-slate-200 transition-all duration-300"
+                  onClick={() => setShowChatBrutiModal(false)}
+                >
+                  Annuler
+                </button>
+                <button
+                  className="flex-1 py-2.5 rounded-full bg-linear-to-r from-amber-400 to-pink-500 hover:opacity-90 text-white font-medium transition-all duration-300"
+                  onClick={confirmChatBruti}
+                >
+                  Activer quand même
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <form onSubmit={onSubmit} className="flex flex-col gap-3 pt-1">
         <div className="flex gap-3 w-full items-end">
           <div className="flex flex-col w-full items-end gap-2 min-w-[210px]">
@@ -122,7 +173,7 @@ export default function ChatControls({
                     type="checkbox"
                     className="peer sr-only"
                     checked={useCustomSystemPrompt}
-                    onChange={(e) => onToggleCustomPrompt(e.target.checked)}
+                    onChange={(e) => handleChatBrutiToggle(e.target.checked)}
                     disabled={isLoading}
                     aria-label="Activer le mode system prompt custom"
                   />

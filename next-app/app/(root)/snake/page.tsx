@@ -14,17 +14,29 @@ import { Poison } from "./components/Food";
 import { useEffect } from "react";
 
 export default function SnakePage() {
-  const { snake, food, poison, score, gameState, resetGame, imageIndex, gameBoardRef, direction } = useSnakeGame();
+  const {
+    snake,
+    food,
+    poison,
+    score,
+    gameState,
+    resetGame,
+    imageIndex,
+    gameBoardRef,
+    direction,
+  } = useSnakeGame();
 
   useEffect(() => {
-		if (gameState === "gameWon") {
+    if (gameState === "gameWon") {
       window.localStorage.setItem("snakeFlag", "1");
-		}
-	}, [gameState]);
+    }
+  }, [gameState]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-slate-100 p-4">
-      <h1 className="mb-4 text-xl sm:text-2xl md:text-4xl font-bold text-green-400 mt-20 md:mt-40 text-center px-2">🐍 Débarassez-vous de toutes les mauvaises pratiques !</h1>
+      <h1 className="mb-4 text-xl sm:text-2xl md:text-4xl font-bold text-purple-400 mt-20 md:mt-40 text-center px-2">
+        🐍 Débarassez-vous de toutes les mauvaises pratiques !
+      </h1>
 
       <ScoreBoard score={score} />
 

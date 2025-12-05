@@ -50,6 +50,7 @@ const EDUCATIONAL_MESSAGES: Record<number, { title: string; message: string }> =
 
 export function GameOverlay({ gameState, score, onRestart }: GameOverlayProps) {
   const [showModal, setShowModal] = useState(false);
+  
   useEffect(() => {
     if (gameState !== "playing") {
       setShowModal(true);
@@ -58,18 +59,17 @@ export function GameOverlay({ gameState, score, onRestart }: GameOverlayProps) {
     }
   }, [gameState]);
 
-
   if (gameState === "playing") return null;
 
   if (gameState === "idle") {
     return (
-      <Modal showModal={showModal} setShowModal={setShowModal} title="Début de partie" showCloseButton={true}>
-        <div className="flex flex-col items-center justify-center">
-          <p className="mb-4 text-2xl text-slate-500 text-center">
-            Appuie sur Espace pour jouer
+      <Modal showModal={showModal} setShowModal={setShowModal} title="🐍 Début de partie" showCloseButton={true}>
+        <div className="flex flex-col items-center justify-center text-center">
+          <p className="text-base sm:text-lg md:text-xl text-slate-500 hidden lg:block">
+            Appuie sur <span className="font-semibold text-purple-400">Espace</span> pour jouer
           </p>
-          <p className="gameState text-center">
-            Utilise les flèches pour te déplacer
+          <p className="text-base sm:text-lg text-slate-500 lg:hidden">
+            Appuie sur l&apos;écran pour jouer
           </p>
         </div>
       </Modal>
@@ -81,29 +81,29 @@ export function GameOverlay({ gameState, score, onRestart }: GameOverlayProps) {
 
     return (
       <Modal showModal={showModal} setShowModal={setShowModal} title="Fin de partie">
-        <div className="flex flex-col items-center justify-center p-4">
-          <p className="mb-2 text-2xl sm:text-3xl font-bold text-red-600">
+        <div className="flex flex-col items-center justify-center">
+          <p className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-red-600">
             Game Over !
           </p>
-          <p className="mb-3 text-lg sm:text-xl text-white">
+          <p className="mb-3 text-base sm:text-lg md:text-xl text-slate-600">
             Score: {score / 10}/6
           </p>
 
-          <div className="bg-purple-500/20 rounded-lg p-3 sm:p-4 mb-4 max-w-[90%] text-center">
-            <p className="text-base sm:text-lg font-bold mb-2 text-purple-500">
+          <div className="bg-purple-500/20 rounded-lg p-3 mb-4 w-full text-center">
+            <p className="text-sm sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-purple-500">
               {educationalContent.title}
             </p>
-            <p className="text-xs sm:text-sm lg:text-lg text-purple-400 leading-relaxed">
+            <p className="text-xs sm:text-sm text-purple-400 leading-relaxed">
               {educationalContent.message}
             </p>
           </div>
 
           <button
             onClick={onRestart}
-            className="bg-white w-fit text-purple-400 flex items-center shadow justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
+            className="bg-white w-fit text-purple-400 flex items-center shadow justify-center px-4 sm:px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative text-sm sm:text-base"
           >
-            <FaArrowRotateLeft className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
-            <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
+            <FaArrowRotateLeft className="absolute right-4 sm:right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-3 sm:group-hover:right-4" />
+            <span className="transition-all duration-300 ease-in-out group-hover:pr-5 sm:group-hover:pr-6">
               Rejouer
             </span>
           </button>
@@ -111,31 +111,34 @@ export function GameOverlay({ gameState, score, onRestart }: GameOverlayProps) {
       </Modal>
     );
   }
+
   if (gameState === "gameWon") {
     return (
       <Modal showModal={showModal} setShowModal={setShowModal} title="Vous avez gagné !">
         <div className="flex flex-col items-center justify-center">
-          <p className="mb-4 text-3xl font-bold text-green-400">
+          <p className="mb-4 text-xl sm:text-2xl md:text-3xl font-bold text-green-400 text-center">
             Félicitations, vous avez gagné !
           </p>
-          <Link
-            href="/"
-            className="bg-white w-fit text-purple-400 shadow flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
-          >
-            <FaArrowLeft className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
-            <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
-              Retourner à l'accueil
-            </span>
-          </Link>
-          <button
-            onClick={onRestart}
-            className="bg-white w-fit text-purple-400 shadow flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative mt-4"
-          >
-            <FaArrowRotateLeft className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
-            <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
-              Rejouer
-            </span>
-          </button>
+          <div className="flex flex-col items-center gap-3 w-full">
+            <Link
+              href="/"
+              className="bg-white w-fit text-purple-400 shadow flex items-center justify-center px-4 sm:px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative text-sm sm:text-base"
+            >
+              <FaArrowLeft className="absolute right-4 sm:right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-3 sm:group-hover:right-4" />
+              <span className="transition-all duration-300 ease-in-out group-hover:pr-5 sm:group-hover:pr-6">
+                Retourner à l&apos;accueil
+              </span>
+            </Link>
+            <button
+              onClick={onRestart}
+              className="bg-white w-fit text-purple-400 shadow flex items-center justify-center px-4 sm:px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative text-sm sm:text-base"
+            >
+              <FaArrowRotateLeft className="absolute right-4 sm:right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-3 sm:group-hover:right-4" />
+              <span className="transition-all duration-300 ease-in-out group-hover:pr-5 sm:group-hover:pr-6">
+                Rejouer
+              </span>
+            </button>
+          </div>
         </div>
       </Modal>
     );

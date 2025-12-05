@@ -524,11 +524,25 @@ export default function MineSwipperSection() {
                 cachent dans les cases adjacentes.
               </p>
             </div>
-            <div className="flex items-start gap-2 p-2 bg-slate-100 rounded-lg">
+            {/* Instructions desktop */}
+            <div className="hidden lg:flex items-start gap-2 p-2 bg-slate-100 rounded-lg">
               <span className="text-xl">🚩</span>
               <p>
                 Clic droit pour signaler une pratique d&apos;obsolescence
                 programmée avec un drapeau.
+              </p>
+            </div>
+            {/* Instructions mobile */}
+            <div className="lg:hidden flex items-start gap-2 p-2 bg-slate-100 rounded-lg">
+              <span className="text-xl">👆</span>
+              <p>
+                Appuyez sur une case pour la révéler.
+              </p>
+            </div>
+            <div className="lg:hidden flex items-start gap-2 p-2 bg-slate-100 rounded-lg">
+              <span className="text-xl">🚩</span>
+              <p>
+                Restez appuyé sur une case pour placer un drapeau.
               </p>
             </div>
             <div className="flex items-start gap-2 p-2 bg-purple-50 rounded-lg border border-purple-200">

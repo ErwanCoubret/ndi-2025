@@ -39,13 +39,13 @@ export default function AssoSection() {
         <div className="flex flex-col gap-4 items-center justify-center">
           <Image
             src="/asso/image.png"
-            alt="Description"
+            alt="Intervention NIRD en classe"
             width={500}
             height={300}
             className="rounded-lg"
           />
           <span className="text-base text-slate-500">
-            Image illustrative de la démarche NIRD, source: NIRD
+            Intervention de l'équipe NIRD auprès d'élèves pour sensibiliser au numérique responsable, source : NIRD
           </span>
         </div>
 

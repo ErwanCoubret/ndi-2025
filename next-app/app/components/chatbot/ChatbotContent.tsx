@@ -129,7 +129,7 @@ export default function ChatbotContent() {
       setError(
         useLocalLlm
           ? "Erreur lors de la génération locale."
-          : "Impossible de contacter le chatbot. Vérifie que FastAPI tourne bien sur http://localhost:8001/chat."
+          : "Le service est momentanément indisponible. Cela est probablement dû à une surcharge réseau."
       );
     } finally {
       setIsLoading(false);
@@ -203,7 +203,7 @@ export default function ChatbotContent() {
         </Modal>
         <div className="w-full max-w-4xl flex flex-col gap-5 mt-20">
           <header className="text-center space-y-2">
-            <p className="text-3xl text-purple-400 font-bold">Chatbot Page</p>
+            <p className="text-3xl text-purple-400 font-bold">ChatBot NIRD</p>
             <p className="text-center text-slate-500 font-medium max-w-2xl mx-auto">
               Pose tes questions sur l&apos;IA ou clique sur un domaine
               ci-dessous pour que le chatbot t&apos;explique des notions comme
@@ -222,35 +222,38 @@ export default function ChatbotContent() {
           >
             {/* Zone des messages */}
             <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-3">
-              {messages.map((msg, idx) => (
-                <div
-                  key={idx}
-                  className={`flex w-full ${
-                    msg.role === "user" ? "justify-end" : "justify-start"
-                  }`}
-                >
+              {messages.map((msg, idx) => {
+                const renderedContent =
+                  msg.role === "assistant"
+                    ? msg.content
+                    : cleanAndConvertToHtml(msg.content);
+
+                return (
                   <div
-                    className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap border ${
-                      msg.role === "user"
-                        ? isDumbMode
-                          ? "bg-lime-400 text-black rounded-br-none border-lime-500 shadow-sm"
-                          : "bg-purple-500 text-white rounded-br-none border-purple-500"
-                        : isDumbMode
-                        ? "bg-gradient-to-r from-amber-50 via-pink-50 to-lime-50 text-amber-900 rounded-bl-none border-amber-200 shadow"
-                        : "bg-slate-100 text-slate-800 rounded-bl-none border-slate-200"
+                    key={idx}
+                    className={`flex w-full ${
+                      msg.role === "user" ? "justify-end" : "justify-start"
                     }`}
                   >
-                    {msg.role === "assistant" ? (
+                    <div
+                      className={`max-w-[80%] rounded-2xl px-3 py-2 text-sm border ${
+                        msg.role === "user"
+                          ? isDumbMode
+                            ? "bg-lime-400 text-black rounded-br-none border-lime-500 shadow-sm"
+                            : "bg-purple-500 text-white rounded-br-none border-purple-500"
+                          : isDumbMode
+                          ? "bg-gradient-to-r from-amber-50 via-pink-50 to-lime-50 text-amber-900 rounded-bl-none border-amber-200 shadow"
+                          : "bg-slate-100 text-slate-800 rounded-bl-none border-slate-200"
+                      }`}
+                    >
                       <div
                         className="prose prose-sm max-w-none"
-                        dangerouslySetInnerHTML={{ __html: msg.content }}
+                        dangerouslySetInnerHTML={{ __html: renderedContent }}
                       />
-                    ) : (
-                      msg.content
-                    )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Bubbles + input */}

@@ -36,13 +36,13 @@ marked.setOptions({
 });
 
 // Nettoyage commun (quotes, \n) + conversion markdown → HTML
-export const cleanAndConvertToHtml = async (raw: string): Promise<string> => {
+export const cleanAndConvertToHtml = (raw: string): string => {
   const cleaned = raw
     .replace(/^"|"$/g, "")
     .replace(/\\n|\r?\n/g, "\n")
     .trim();
 
-  const html = await marked.parse(cleaned);
+  const html = marked.parse(cleaned);
   return typeof html === "string" ? html : String(html);
 };
 

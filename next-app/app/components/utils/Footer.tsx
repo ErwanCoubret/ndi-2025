@@ -10,7 +10,7 @@ export default function Footer() {
             <p className="text-xl font-bold italic">Babteam sous NDI</p>
           </div>
 
-          <p className="text-slate-500 font-light text-xs mb-2">
+          <p className="text-slate-500 font-light text-base mb-2">
             Une équipe 100% TPS
           </p>
 

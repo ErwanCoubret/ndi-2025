@@ -93,7 +93,7 @@ export function GameOverlay({ gameState, score, onRestart }: GameOverlayProps) {
             <p className="text-sm sm:text-base md:text-lg font-bold mb-1 sm:mb-2 text-purple-500">
               {educationalContent.title}
             </p>
-            <p className="text-xs sm:text-sm text-purple-400 leading-relaxed">
+            <p className="lg:text-lg text-purple-400 leading-relaxed">
               {educationalContent.message}
             </p>
           </div>

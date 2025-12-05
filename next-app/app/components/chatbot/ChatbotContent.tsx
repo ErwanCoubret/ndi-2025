@@ -268,7 +268,7 @@ export default function ChatbotContent() {
               />
 
               {error && (
-                <p className="text-xs text-red-500" role="alert">
+                <p className="text-red-500" role="alert">
                   {error}
                 </p>
               )}

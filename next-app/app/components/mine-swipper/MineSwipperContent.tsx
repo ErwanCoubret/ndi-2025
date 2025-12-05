@@ -57,6 +57,7 @@ export default function MineSwipperSection() {
   const [timerActive, setTimerActive] = useState(false);
   const [load, setLoad] = useState(true);
   const [rule, setRule] = useState(false);
+  const [flagMode, setFlagMode] = useState(false);
 
   useEffect(() => {
     let timer: NodeJS.Timeout | undefined;
@@ -79,6 +80,7 @@ export default function MineSwipperSection() {
     setTime(0);
     setTimerActive(false);
     setLoad(true);
+    setFlagMode(false);
   };
 
   const handleFirstClick = (row: number, col: number) => {
@@ -116,6 +118,12 @@ export default function MineSwipperSection() {
   };
 
   const handleLeftClick = (row: number, col: number) => {
+    // En mode flag sur mobile, on place un drapeau au lieu de révéler
+    if (flagMode) {
+      handleRightClick(row, col);
+      return;
+    }
+
     if (!firstClick) {
       handleFirstClick(row, col);
       return;
@@ -280,9 +288,9 @@ export default function MineSwipperSection() {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center pt-28 pb-4 px-4 bg-slate-100">
+    <div className="w-full h-screen flex flex-col items-center justify-center pt-0 sm:pt-28 pb-4 px-4 bg-slate-100">
       {/* Version Mobile (< 1024px) - Carte compacte */}
-      <div className="lg:hidden relative bg-white rounded-2xl p-4 md:p-6 shadow-xl border border-purple-200/50 max-h-[calc(100vh-8rem)] overflow-auto">
+      <div className="lg:hidden scale-80 sm:scale-100 bg-white rounded-2xl p-4 md:p-6 shadow border border-purple-200/50 h-fit">
         {/* Header avec titre et info */}
         <div className="flex flex-col items-center mb-3">
           <h1 className="text-xl md:text-2xl font-bold text-purple-400 mb-1">
@@ -300,6 +308,19 @@ export default function MineSwipperSection() {
         >
           <RiInformation2Line className="text-lg group-hover:rotate-12 transition-transform" />
           <span className="text-xs font-medium">Comment jouer ?</span>
+        </button>
+
+        {/* Bouton Toggle Mode Flag (Mobile) */}
+        <button
+          onClick={() => setFlagMode(!flagMode)}
+          className={`flex items-center gap-2 mx-auto mb-3 px-3 py-1.5 rounded-full border text-xs font-medium transition-all duration-300 ${
+            flagMode
+              ? "bg-green-50 border-green-400 text-green-600"
+              : "bg-white border-slate-200 text-slate-500 hover:border-slate-300"
+          }`}
+        >
+          <FaFlag className="text-sm" />
+          <span>{flagMode ? "Mode Drapeau ✓" : "Mode Drapeau"}</span>
         </button>
 
         {/* Stats bar */}

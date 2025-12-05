@@ -179,7 +179,7 @@ export default function ChatbotContent() {
   return (
     <div className="w-full h-fit pb-1 px-1 lg:pb-3 lg:px-3">
       <div
-        className={`w-full h-full min-h-screen flex flex-col items-center justify-center py-10 px-4 rounded xl:rounded-xl relative overflow-hidden transition-colors duration-300 ${
+        className={`w-full h-full min-h-screen flex flex-col items-center justify-center py-10 px-1 lg:px-4 rounded xl:rounded-xl relative overflow-hidden transition-colors duration-300 ${
           isDumbMode
             ? "bg-gradient-to-br from-yellow-100 via-pink-100 to-lime-100"
             : "bg-slate-100"
@@ -201,7 +201,7 @@ export default function ChatbotContent() {
             Retour à l'accueil
           </Link>
         </Modal>
-        <div className="w-full max-w-4xl flex flex-col gap-5">
+        <div className="w-full max-w-4xl flex flex-col gap-5 mt-20">
           <header className="text-center space-y-2">
             <p className="text-3xl text-purple-400 font-bold">Chatbot Page</p>
             <p className="text-center text-slate-500 font-medium max-w-2xl mx-auto">
@@ -214,7 +214,7 @@ export default function ChatbotContent() {
           </header>
 
           <div
-            className={`flex flex-col rounded-2xl border h-[70vh] max-h-[720px] shadow-md transition-colors duration-300 ${
+            className={`flex flex-col rounded-2xl border shadow-md transition-colors duration-300 ${
               isDumbMode
                 ? "bg-white/90 backdrop-blur border-amber-200 shadow-[0_15px_60px_-30px_rgba(249,115,22,0.4)]"
                 : "bg-white border-slate-200"

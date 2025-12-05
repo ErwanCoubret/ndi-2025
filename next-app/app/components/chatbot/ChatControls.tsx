@@ -57,11 +57,6 @@ export default function ChatControls({
               <span className="absolute inset-0 rounded-full bg-slate-300 transition peer-checked:bg-gradient-to-r peer-checked:from-emerald-400 peer-checked:to-blue-500 peer-focus:ring-2 peer-focus:ring-offset-2 peer-focus:ring-purple-300" />
               <span className="absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow transition peer-checked:translate-x-5" />
             </label>
-            {useLocalLlm && (
-              <span className="text-[11px] text-slate-500">
-                {localModelReady ? "prêt" : "charge..."}
-              </span>
-            )}
           </div>
 
           <div className="flex items-center justify-end gap-2 text-xs md:text-sm text-slate-700">

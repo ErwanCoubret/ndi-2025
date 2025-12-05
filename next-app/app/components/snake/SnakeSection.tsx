@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
 
 export default function SnakeSection() {
@@ -13,7 +13,7 @@ export default function SnakeSection() {
   };
 
   const handleValidation = () => {
-    if (inputValue === "SERPENT") {
+    if (inputValue.toLowerCase() === "serpent") {
       setIsUnlocked(true);
       alert("Clé correcte ! Le jeu est débloqué.");
     } else {
@@ -42,7 +42,7 @@ export default function SnakeSection() {
             onChange={handleInputChange}
             value={inputValue}
             placeholder="Entrez la clé du jeu"
-            className="border border-gray-300 text-slate-500 rounded-full px-4 py-2"
+            className="border border-purple-500 text-slate-500 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
           />
 
           <button

@@ -1,14 +1,31 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa6";
+import { FaGlobe, FaVideo } from "react-icons/fa6";
 
 export default function AssoSection() {
   return (
-    <div  className="relative w-full h-fit pb-1 px-1 lg:pb-3 lg:px-3">
+    <div  className="relative w-full h-fit pb-1 px-1 lg:pb-3 lg:px-3 text-lg">
       <div id="asso" className="absolute -mt-20" />
 
       <div className="w-full h-full min-h-[70vh] flex flex-col gap-10 items-center justify-center bg-slate-100 py-20 px-4 rounded xl:rounded-xl relative overflow-hidden">
-        <h1 className="text-center text-3xl font-bold text-purple-400">
+        
+        <Image
+          src="/logo_nird.png"
+          alt="Logo NIRD"
+          width={400}
+          height={400}
+          className="absolute left-10 top-1/2 -translate-y-1/2 opacity-0 lg:opacity-10 -rotate-12"
+        />
+
+        <Image
+          src="/logo_nird.png"
+          alt="Logo NIRD"
+          width={300}
+          height={300}
+          className="absolute right-10 bottom-20 opacity-0 lg:opacity-10 rotate-12"
+        />
+
+        <h1 className="text-center text-3xl font-bold text-purple-400 z-10">
           La démarche NIRD
         </h1>
 
@@ -27,7 +44,7 @@ export default function AssoSection() {
             height={300}
             className="rounded-lg"
           />
-          <span className="text-sm text-slate-500">
+          <span className="text-base text-slate-500">
             Image illustrative de la démarche NIRD, source: NIRD
           </span>
         </div>
@@ -59,16 +76,29 @@ export default function AssoSection() {
           captifs.
         </p>
 
+      <div className="flex flex-col lg:flex-row items-center gap-4">
         <Link
           href="https://nird.forge.apps.education.fr/"
           target="_blank"
           className="bg-white w-fit text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
         >
-          <FaArrowRight className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
+          <FaGlobe className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
           <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
             Site de la démarche NIRD 
           </span>
         </Link>
+
+        <Link
+          href="https://tube-numerique-educatif.apps.education.fr/w/pZCnzPKTYX2iF38Qh4ZGmq"
+          target="_blank"
+          className="bg-white w-fit text-purple-400 flex items-center justify-center px-6 py-2 rounded-full transform hover:scale-105 duration-300 hover:bg-purple-400 hover:text-white transition-all cursor-pointer group relative"
+        >
+          <FaVideo className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
+          <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
+            Vidéo de présentation NIRD 
+          </span>
+        </Link>
+      </div>
       </div>
     </div>
   );

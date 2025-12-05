@@ -1,7 +1,7 @@
 "use client";
 
 import { Position } from "../types";
-import { CELL_SIZE } from "../constants";
+import { GRID_SIZE } from "../constants";
 import Image from "next/image";
 
 type FoodProps = {
@@ -9,38 +9,50 @@ type FoodProps = {
   imgPath: string;
 };
 
+const CELL_PERCENT = 100 / GRID_SIZE;
+
 export function Food({ position, imgPath }: FoodProps) {
     return (
-        <Image
-            src={imgPath}
-            alt="Food"
+        <div
             className="absolute"
-            width={CELL_SIZE - 4}
-            height={CELL_SIZE - 4}
             style={{
-                left: position.x * CELL_SIZE + 2,
-                top: position.y * CELL_SIZE + 2,
-                borderRadius: "50%",
-                position: "absolute",
+                width: `${CELL_PERCENT * 0.95}%`,
+                height: `${CELL_PERCENT * 0.95}%`,
+                left: `${position.x * CELL_PERCENT + CELL_PERCENT * 0.025}%`,
+                top: `${position.y * CELL_PERCENT + CELL_PERCENT * 0.025}%`,
             }}
-        />
+        >
+            <Image
+                src={imgPath}
+                alt="Food"
+                fill
+                priority
+                unoptimized
+                className="object-contain"
+            />
+        </div>
     );
 }
 
 export function Poison({ position, imgPath }: FoodProps) {
     return (
-        <Image
-            src={imgPath}
-            alt="Poison"
+        <div
             className="absolute"
-            width={CELL_SIZE - 4}
-            height={CELL_SIZE - 4}
             style={{
-                left: position.x * CELL_SIZE + 2,
-                top: position.y * CELL_SIZE + 2,
-                borderRadius: "50%",
-                position: "absolute",
+                width: `${CELL_PERCENT * 0.95}%`,
+                height: `${CELL_PERCENT * 0.95}%`,
+                left: `${position.x * CELL_PERCENT + CELL_PERCENT * 0.025}%`,
+                top: `${position.y * CELL_PERCENT + CELL_PERCENT * 0.025}%`,
             }}
-        />
+        >
+            <Image
+                src={imgPath}
+                alt="Poison"
+                fill
+                priority
+                unoptimized
+                className="object-contain"
+            />
+        </div>
     );
 }

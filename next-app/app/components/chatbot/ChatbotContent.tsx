@@ -66,7 +66,7 @@ export default function ChatbotContent() {
 
         const systemPrompt = useCustomSystemPrompt
           ? "Tu es un chatbot loufoque. Réponds avec humour et concision."
-          : "Tu es un assistant pédago. Réponds en français clairement et brièvement.";
+          : "Tu es un assistant pédagogique. Réponds en français clairement et brièvement.";
 
         // On transforme l'historique en LocalMessage, en supprimant les balises HTML
         const localHistory: LocalMessage[] = toLocalHistory(nextMessages);

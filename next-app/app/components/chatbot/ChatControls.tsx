@@ -21,6 +21,7 @@ export default function ChatControls({
   isLoading,
   isDumbMode,
   useLocalLlm,
+  localModelReady,
   onToggleLocalLlm,
   useCustomSystemPrompt,
   onToggleCustomPrompt,
@@ -152,6 +153,15 @@ export default function ChatControls({
             <div className="flex gap-4">
               <div className="flex flex-wrap items-center justify-end gap-2 text-xs md:text-sm text-slate-700">
                 <span className="font-medium">Local LLM</span>
+                {useLocalLlm && !localModelReady && !localModelError && (
+                  <span
+                    className="flex items-center justify-center h-4 w-4 text-purple-500"
+                    aria-label="Chargement du modèle local"
+                    title="Le modèle local se charge"
+                  >
+                    <span className="h-3 w-3 rounded-full border-2 border-purple-300 border-t-transparent animate-spin" />
+                  </span>
+                )}
                 <label className="relative inline-flex h-6 w-11 items-center">
                   <input
                     type="checkbox"

@@ -22,6 +22,12 @@ Then start the Docker containers with the following command:
 docker compose up
 ```
 
+## Presentation
+
+You can find the site at [https://ndi2025.hixy.tk](https://ndi2025.hixy.tk)
+
+![Home](home.png)
+
 ## Dependencies
 
 ### Backend

@@ -12,6 +12,16 @@ import {
 
 const TOTAL_IMAGES = 6;
 
+// Preload all images at module load time
+const preloadImages = () => {
+  for (let i = 1; i <= TOTAL_IMAGES; i++) {
+    const foodImg = new window.Image();
+    foodImg.src = `/snake/image_${i}.png`;
+    const poisonImg = new window.Image();
+    poisonImg.src = `/snake/poison_${i}.png`;
+  }
+};
+
 // Crée le serpent initial avec 3 segments
 const createInitialSnake = (): Position[] => [
   INITIAL_SNAKE_POSITION,
@@ -27,6 +37,11 @@ export function useSnakeGame() {
   const [score, setScore] = useState(0);
   const [imageIndex, setImageIndex] = useState(1);
 
+  // Preload images on first render
+  useEffect(() => {
+    preloadImages();
+  }, []);
+
   // Utiliser des refs pour éviter les re-renders et le double comptage
   const directionRef = useRef<Direction>(INITIAL_DIRECTION);
   const lastDirectionRef = useRef<Direction>(INITIAL_DIRECTION);
@@ -36,35 +51,44 @@ export function useSnakeGame() {
   const gameBoardRef = useRef<HTMLDivElement>(null);
 
   // Génère une nouvelle position pour la nourriture
-  const generateFood = useCallback((snakeBody: Position[]): Position => {
+// Helper to calculate Manhattan distance
+const manhattanDistance = (a: Position, b: Position) =>
+    Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+
+const generateFood = useCallback((snakeBody: Position[]): Position => {
     let newFood: Position;
+    const head = snakeBody[0];
     do {
-      newFood = {
-        x: Math.floor(Math.random() * GRID_SIZE),
-        y: Math.floor(Math.random() * GRID_SIZE),
-      };
+        newFood = {
+            x: Math.floor(Math.random() * GRID_SIZE),
+            y: Math.floor(Math.random() * GRID_SIZE),
+        };
     } while (
-      snakeBody.some(
-        (segment) => segment.x === newFood.x && segment.y === newFood.y
-      )
+        snakeBody.some(
+            (segment) => segment.x === newFood.x && segment.y === newFood.y
+        ) ||
+        manhattanDistance(newFood, head) < 3
     );
     return newFood;
-  }, []);
+}, []);
 
-  const generatePoison = useCallback((snakeBody: Position[], foodPosition: Position): Position => {
+const generatePoison = useCallback((snakeBody: Position[], foodPosition: Position): Position => {
     let newPoison: Position;
+    const head = snakeBody[0];
     do {
-      newPoison = {
-        x: Math.floor(Math.random() * GRID_SIZE),
-        y: Math.floor(Math.random() * GRID_SIZE),
-      };
+        newPoison = {
+            x: Math.floor(Math.random() * GRID_SIZE),
+            y: Math.floor(Math.random() * GRID_SIZE),
+        };
     } while (
-      snakeBody.some(
-        (segment) => segment.x === newPoison.x && segment.y === newPoison.y
-      ) || (newPoison.x === foodPosition.x && newPoison.y === foodPosition.y)
+        snakeBody.some(
+            (segment) => segment.x === newPoison.x && segment.y === newPoison.y
+        ) ||
+        (newPoison.x === foodPosition.x && newPoison.y === foodPosition.y) ||
+        manhattanDistance(newPoison, head) < 3
     );
     return newPoison;
-  }, []);
+}, []);
 
   const gameOver = useCallback(() => {
     setGameState("gameOver");
@@ -299,7 +323,7 @@ export function useSnakeGame() {
           return newScore;
         });
         setImageIndex((prev) => (prev % TOTAL_IMAGES) + 1);
-        // Le serpent grandit de 2
+        // Le serpent grandit de 2 
         const lastSegment = newSnake[newSnake.length - 1];
         newSnake.push({ ...lastSegment });
         setSnake(newSnake);

@@ -23,7 +23,6 @@ export function Snake({ segments }: SnakeProps) {
             height: `${CELL_PERCENT * 0.9}%`,
             left: `${segment.x * CELL_PERCENT + CELL_PERCENT * 0.05}%`,
             top: `${segment.y * CELL_PERCENT + CELL_PERCENT * 0.05}%`,
-            transition: "all 0.1s",
           }}
         />
       ))}

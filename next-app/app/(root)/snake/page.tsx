@@ -30,6 +30,7 @@ export default function SnakePage() {
           gameState={gameState}
           score={score}
           onRestart={resetGame}
+          imageIndex={imageIndex}
         />
       </GameBoard>
 

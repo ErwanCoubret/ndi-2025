@@ -1,6 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   ensureLocalGenerator,
   generateLocalReply,
@@ -37,13 +42,28 @@ export default function ChatbotContent() {
     }
   }, [messages]);
 
+  // Charge le modèle local (appelé au toggle + en fallback si besoin)
+  const loadLocalModel = useCallback(async () => {
+    setLocalModelError(null);
+    setLocalModelReady(false);
+    try {
+      await ensureLocalGenerator();
+      setLocalModelReady(true);
+    } catch (err) {
+      console.error(err);
+      setLocalModelError("Impossible de charger le modèle local.");
+      // On désactive le mode local si le chargement échoue
+      setUseLocalLlm(false);
+      throw err;
+    }
+  }, []);
+
   const sendMessage = async (text: string) => {
     const trimmed = text.trim();
     if (!trimmed || isLoading) return;
 
     const userMessage: ChatMessage = { role: "user", content: trimmed };
 
-    // On prend un snapshot local de l'historique
     const nextMessages = [...messages, userMessage];
 
     setMessages(nextMessages);
@@ -54,24 +74,17 @@ export default function ChatbotContent() {
 
     try {
       if (useLocalLlm) {
-        // Pré-chargement du modèle (pour afficher "charge..." puis "prêt")
-        try {
-          await ensureLocalGenerator();
-          setLocalModelReady(true);
-        } catch (err) {
-          console.error(err);
-          setLocalModelError("Impossible de charger le modèle local.");
-          throw err;
-        }
-
         const systemPrompt = useCustomSystemPrompt
           ? "Tu es un chatbot loufoque. Réponds avec humour et concision."
           : "Tu es un assistant pédagogique. Réponds en français clairement et brièvement.";
 
-        // On transforme l'historique en LocalMessage, en supprimant les balises HTML
         const localHistory: LocalMessage[] = toLocalHistory(nextMessages);
 
+        // generateLocalReply appelle lui-même ensureLocalGenerator(),
+        // mais loadLocalModel l'a déjà préchargé côté UX.
         const rawReply = await generateLocalReply(localHistory, systemPrompt);
+        setLocalModelReady(true); // À ce stade le modèle est forcément prêt
+
         const htmlReply = await cleanAndConvertToHtml(rawReply);
 
         setMessages((prev) => [
@@ -132,6 +145,22 @@ export default function ChatbotContent() {
 
   const handleTopicClick = (prompt: string) => {
     sendMessage(prompt);
+  };
+
+  // Quand on active le LLM local, on lance immédiatement le chargement du modèle
+  const handleToggleLocalLlm = (checked: boolean) => {
+    setLocalModelError(null);
+    setUseLocalLlm(checked);
+
+    if (checked) {
+      // préchargement non bloquant (UI voit localModelReady = false → "charge...")
+      loadLocalModel().catch(() => {
+        // l'erreur est déjà gérée dans loadLocalModel
+      });
+    } else {
+      // On réinitialise l'état "prêt"
+      setLocalModelReady(false);
+    }
   };
 
   return (
@@ -209,7 +238,6 @@ export default function ChatbotContent() {
                 </p>
               )}
 
-              {/* Zone de saisie */}
               <ChatControls
                 input={input}
                 onInputChange={setInput}
@@ -218,10 +246,7 @@ export default function ChatbotContent() {
                 isDumbMode={isDumbMode}
                 useLocalLlm={useLocalLlm}
                 localModelReady={localModelReady}
-                onToggleLocalLlm={(checked) => {
-                  setLocalModelError(null);
-                  setUseLocalLlm(checked);
-                }}
+                onToggleLocalLlm={handleToggleLocalLlm}
                 useCustomSystemPrompt={useCustomSystemPrompt}
                 onToggleCustomPrompt={setUseCustomSystemPrompt}
                 localModelError={localModelError}

@@ -11,10 +11,12 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@huggingface/transformers": "^3.8.1",
+    "@lenml/tokenizers": "^3.7.2",
     "@mlc-ai/web-llm": "^0.2.80",
     "gsap": "^3.13.0",
     "marked": "^17.0.1",
     "next": "16.0.7",
+    "onnxruntime-web": "^1.23.2",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-icons": "^5.5.0"

@@ -3,13 +3,10 @@
 
 ![Python3.11](https://img.shields.io/badge/python-3.13-red) &nbsp;
 
-## Overview
-
-ClarifAI is a web application that allows users to learn with the help of AI. It provides a platform where users can uplaod videos, and ask questions to a Chatbot, use tools like text transcription and summarization.
 
 ## Environment
 
-To run the application, you need to set up the environment variables. Create a `.env` file in the root directory of the project and add the following variables:
+To run the application, you need to set up the environment variables. Create a `.env` file in the fastapi directory of the project and add the following variables:
 
 ```py
 GROQ_API_KEY="your-api-key"

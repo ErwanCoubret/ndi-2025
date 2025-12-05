@@ -13,7 +13,6 @@
     "@gsap/react": "^2.1.2",
     "@huggingface/transformers": "^3.8.1",
     "@lenml/tokenizers": "^3.7.2",
-    "@mlc-ai/web-llm": "^0.2.80",
     "gsap": "^3.13.0",
     "marked": "^17.0.1",
     "next": "16.0.7",

@@ -38,7 +38,7 @@ const Modal = ({ showModal, setShowModal, title, children, showCloseButton = fal
   return (
     <>
       {showModal ? (
-        <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 flex items-center justify-center z-50 p-4 sm:p-6">
           {/* Backdrop avec blur */}
           <div 
             className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity duration-300" 
@@ -46,32 +46,32 @@ const Modal = ({ showModal, setShowModal, title, children, showCloseButton = fal
           />
           
           {/* Container de la modal */}
-          <div className="relative z-10 w-full max-w-lg animate-modal-in">
+          <div className="relative z-10 w-full max-w-lg animate-modal-in mx-2">
             {/* Contenu de la modal */}
-            <div className="relative bg-white rounded-2xl shadow-2xl border border-purple-100 overflow-hidden">
+            <div className="relative bg-white rounded-xl sm:rounded-2xl shadow-2xl border border-purple-100 overflow-hidden max-h-[85vh] flex flex-col">
               {/* Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-                <h2 className="text-xl font-bold text-purple-400 flex items-center gap-2">
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-100 shrink-0">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-purple-400 flex items-center gap-2">
                   {title}
                 </h2>
                 <button
-                  className="p-2 rounded-lg text-slate-400 hover:text-purple-400 hover:bg-slate-100 transition-all duration-200"
+                  className="p-1.5 sm:p-2 rounded-lg text-slate-400 hover:text-purple-400 hover:bg-slate-100 transition-all duration-200 shrink-0"
                   onClick={() => setShowModal(false)}
                 >
-                  <IoClose className="text-2xl" />
+                  <IoClose className="text-xl sm:text-2xl" />
                 </button>
               </div>
               
-              {/* Body */}
-              <div className="px-6 py-5">
+              {/* Body - scrollable si nécessaire */}
+              <div className="px-4 sm:px-6 py-4 sm:py-5 overflow-y-auto flex-1">
                 {children}
               </div>
               
               {/* Footer avec bouton fermer */}
               {showCloseButton && (
-                <div className="px-6 py-4 bg-slate-50 border-t border-slate-100">
+                <div className="px-4 sm:px-6 py-3 sm:py-4 bg-slate-50 border-t border-slate-100 shrink-0">
                   <button
-                    className="w-full py-2.5 rounded-full bg-white hover:bg-purple-400 text-purple-400 hover:text-white font-medium border border-purple-200 hover:border-purple-400 transition-all duration-300"
+                    className="w-full py-2 sm:py-2.5 rounded-full bg-white hover:bg-purple-400 text-purple-400 hover:text-white font-medium border border-purple-200 hover:border-purple-400 transition-all duration-300 text-sm sm:text-base"
                     onClick={() => setShowModal(false)}
                   >
                     Compris ! 👍

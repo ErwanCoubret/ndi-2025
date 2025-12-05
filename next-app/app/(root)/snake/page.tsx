@@ -8,7 +8,7 @@ import {
   Food,
   GameOverlay,
   ScoreBoard,
-  Controls,
+  GameControls,
 } from "./components";
 import { Poison } from "./components/Food";
 import { useEffect } from "react";
@@ -53,7 +53,7 @@ export default function SnakePage() {
         />
       </GameBoard>
 
-      <Controls />
+      <GameControls />
     </div>
   );
 }

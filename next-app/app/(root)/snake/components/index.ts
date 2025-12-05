@@ -5,3 +5,4 @@ export { Food } from "./Food";
 export { GameOverlay } from "./GameOverlay";
 export { ScoreBoard } from "./ScoreBoard";
 export { Controls } from "./Controls";
+export { GameControls } from "./GameControls";

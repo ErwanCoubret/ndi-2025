@@ -112,7 +112,7 @@ export default function HeroSection() {
             >
               <FaArrowDown className="absolute right-6 transform transition-all duration-300 ease-in-out rotate-90 opacity-0 group-hover:rotate-0 group-hover:opacity-100 group-hover:right-4" />
               <span className="transition-all duration-300 ease-in-out group-hover:pr-6">
-                L'association NIRD
+                La démarche NIRD
               </span>
             </Link>
           </div>

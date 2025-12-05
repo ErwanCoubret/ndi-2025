@@ -1,11 +1,6 @@
 "use client";
 
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { use, useCallback, useEffect, useRef, useState } from "react";
 import {
   ensureLocalGenerator,
   generateLocalReply,
@@ -16,6 +11,8 @@ import QuickTopics from "./QuickTopics";
 import ChatControls from "./ChatControls";
 import { cleanAndConvertToHtml, toLocalHistory } from "./utils";
 import { ChatMessage } from "./types";
+import Modal from "../utils/modal";
+import Link from "next/link";
 
 export default function ChatbotContent() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -144,9 +141,24 @@ export default function ChatbotContent() {
     sendMessage(input);
   };
 
-  const handleTopicClick = (prompt: string) => {
+  const [labelsSelectedTopics, setLabelsSelectedTopics] = useState<string[]>(
+    []
+  );
+  const [showModal, setShowModal] = useState(false);
+
+  const handleTopicClick = (label: string, prompt: string) => {
+    if (!labelsSelectedTopics.includes(label)) {
+      setLabelsSelectedTopics((prev) => [...prev, label]);
+    }
     sendMessage(prompt);
   };
+
+  useEffect(() => {
+    if (labelsSelectedTopics.length == 3) {
+      window.localStorage.setItem("chatbotFlag", "1");
+      setShowModal(true);
+    }
+  }, [labelsSelectedTopics]);
 
   // Quand on active le LLM local, on lance immédiatement le chargement du modèle
   const handleToggleLocalLlm = (checked: boolean) => {
@@ -173,12 +185,29 @@ export default function ChatbotContent() {
             : "bg-slate-100"
         }`}
       >
+        <Modal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          title="Bravo ! 🎉"
+        >
+          <p> Vous avez exploré des sujets d'IA</p>
+          <p>
+            {" "}
+            Vous pouvez continuer à poser des questions ou explorer d'autres
+            sujets.
+          </p>
+
+          <Link href="/">
+            Retour à l'accueil
+          </Link>
+        </Modal>
         <div className="w-full max-w-4xl flex flex-col gap-5">
           <header className="text-center space-y-2">
             <p className="text-3xl text-purple-400 font-bold">Chatbot Page</p>
             <p className="text-center text-slate-500 font-medium max-w-2xl mx-auto">
-              Pose tes questions sur l&apos;IA ou clique sur un domaine ci-dessous
-              pour que le chatbot t&apos;explique des notions comme la
+              Pose tes questions sur l&apos;IA ou clique sur un domaine
+              ci-dessous pour que le chatbot t&apos;explique des notions comme
+              la
               <span className="font-semibold"> classification</span>, les
               <span className="font-semibold"> LLM</span>, etc.
             </p>
@@ -226,10 +255,16 @@ export default function ChatbotContent() {
 
             {/* Bubbles + input */}
             <div className="border-t border-slate-200 px-3 py-3 space-y-3">
+              <p className="text-slate-500 mb-3">
+                Explorez les sujets d'exploration d'IA, liés à des pratiques
+                responsables. (Encore {3 - labelsSelectedTopics.length}/3) :
+              </p>
+
               <QuickTopics
                 disabled={isLoading}
                 isDumbMode={isDumbMode}
                 onClickTopic={handleTopicClick}
+                labelsSelectedTopics={labelsSelectedTopics}
               />
 
               {error && (

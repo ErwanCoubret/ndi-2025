@@ -24,9 +24,9 @@ docker compose up
 
 ## Presentation
 
-You can find the site at [https://ndi2025.hixy.tk](https://ndi2025.hixy.tk)
+You can find our website at [https://ndi2025.hixy.tk](https://ndi2025.hixy.tk)
 
-![Home](home.png)
+![Home](images/home.png)
 
 ## Dependencies
 

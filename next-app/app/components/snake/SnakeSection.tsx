@@ -57,7 +57,7 @@ export default function SnakeSection({ snakeFlag }: { snakeFlag: boolean }) {
           Snake face aux dilemmes !!! 🐍🐍🐍
         </p>
 
-        <img src="/emojis/snake.png" alt="snake" className="w-[20rem] opacity-5 lg:opacity-20 left-30 rotate-20 absolute" />
+        <img src="/emojis/snake.png" alt="snake" className="w-[20rem] opacity-10 lg:opacity-20 left-30 rotate-20 absolute" />
 
         <img src="/emojis/balance-scale.png" alt="balance" className="w-[15rem] opacity-0 lg:opacity-15 right-30 top-8 -rotate-20 absolute" />
 

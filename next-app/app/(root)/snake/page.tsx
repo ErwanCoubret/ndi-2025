@@ -11,9 +11,16 @@ import {
   Controls,
 } from "./components";
 import { Poison } from "./components/Food";
+import { useEffect } from "react";
 
 export default function SnakePage() {
   const { snake, food, poison, score, gameState, resetGame, imageIndex, gameBoardRef, direction } = useSnakeGame();
+
+  useEffect(() => {
+		if (gameState === "gameWon") {
+      window.localStorage.setItem("snakeFlag", "1");
+		}
+	}, [gameState]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-900 p-4">

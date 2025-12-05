@@ -25,6 +25,8 @@ export function useSnakeGame() {
   const lastDirectionRef = useRef<Direction>(INITIAL_DIRECTION);
   const foodRef = useRef<Position>({ x: 15, y: 15 });
   const poisonRef = useRef<Position>({ x: 5, y: 5 });
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const gameBoardRef = useRef<HTMLDivElement>(null);
 
   // Génère une nouvelle position pour la nourriture
   const generateFood = useCallback((snakeBody: Position[]): Position => {
@@ -92,12 +94,22 @@ export function useSnakeGame() {
     };
 
     const handleKeyPress = (e: KeyboardEvent) => {
+      // Prevent default scrolling for game controls
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(e.key)) {
+        e.preventDefault();
+      }
+
       if (gameState === "idle" && e.key === " ") {
         resetGame();
         return;
       }
 
       if (gameState === "gameOver" && e.key === " ") {
+        resetGame();
+        return;
+      }
+
+      if (gameState === "gameWon" && e.key === " ") {
         resetGame();
         return;
       }
@@ -129,6 +141,82 @@ export function useSnakeGame() {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
+  }, [gameState, resetGame]);
+
+  // Gestion des gestes tactiles (swipe) - seulement sur le game board
+  useEffect(() => {
+    const gameBoard = gameBoardRef.current;
+    if (!gameBoard) return;
+
+    const opposites: Record<Direction, Direction> = {
+      UP: "DOWN",
+      DOWN: "UP",
+      LEFT: "RIGHT",
+      RIGHT: "LEFT",
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      // Empêche le scroll de la page quand on swipe sur le jeu
+      if (touchStartRef.current) {
+        e.preventDefault();
+      }
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!touchStartRef.current) return;
+
+      const touch = e.changedTouches[0];
+      const deltaX = touch.clientX - touchStartRef.current.x;
+      const deltaY = touch.clientY - touchStartRef.current.y;
+      const minSwipeDistance = 30;
+
+      // Start game on tap if idle or game over
+      if (Math.abs(deltaX) < minSwipeDistance && Math.abs(deltaY) < minSwipeDistance) {
+        if (gameState === "idle" || gameState === "gameOver" || gameState === "gameWon") {
+          resetGame();
+        }
+        touchStartRef.current = null;
+        return;
+      }
+
+      if (gameState !== "playing") {
+        touchStartRef.current = null;
+        return;
+      }
+
+      let newDirection: Direction | null = null;
+
+      // Determine swipe direction based on the larger delta
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal swipe
+        newDirection = deltaX > 0 ? "RIGHT" : "LEFT";
+      } else {
+        // Vertical swipe
+        newDirection = deltaY > 0 ? "DOWN" : "UP";
+      }
+
+      // Change direction only if it's not the opposite direction
+      if (newDirection && opposites[newDirection] !== lastDirectionRef.current) {
+        directionRef.current = newDirection;
+      }
+
+      touchStartRef.current = null;
+    };
+
+    gameBoard.addEventListener("touchstart", handleTouchStart, { passive: true });
+    gameBoard.addEventListener("touchmove", handleTouchMove, { passive: false });
+    gameBoard.addEventListener("touchend", handleTouchEnd, { passive: true });
+
+    return () => {
+      gameBoard.removeEventListener("touchstart", handleTouchStart);
+      gameBoard.removeEventListener("touchmove", handleTouchMove);
+      gameBoard.removeEventListener("touchend", handleTouchEnd);
+    };
   }, [gameState, resetGame]);
 
   // Boucle de jeu principale
@@ -196,7 +284,13 @@ export function useSnakeGame() {
         poisonRef.current = newPoison;
         setFood(newFood);
         setPoison(newPoison);
-        setScore((prev) => prev + SCORE_INCREMENT);
+        setScore((prev) => {
+          const newScore = prev + SCORE_INCREMENT;
+          if (newScore >= 60) {
+            setGameState("gameWon");
+          }
+          return newScore;
+        });
         setImageIndex((prev) => (prev % TOTAL_IMAGES) + 1);
         setSnake(newSnake); // Le serpent grandit (pas de pop)
       } else {
@@ -217,5 +311,6 @@ export function useSnakeGame() {
     gameState,
     resetGame,
     imageIndex,
+    gameBoardRef,
   };
 }

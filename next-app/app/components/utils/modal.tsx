@@ -6,9 +6,10 @@ interface ModalProps {
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
   children?: ReactNode;
+  showCloseButton?: boolean;
 }
 
-const Modal = ({ showModal, setShowModal, title, children }: ModalProps) => {
+const Modal = ({ showModal, setShowModal, title, children, showCloseButton = false }: ModalProps) => {
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.keyCode === 27) {
@@ -67,14 +68,16 @@ const Modal = ({ showModal, setShowModal, title, children }: ModalProps) => {
               </div>
               
               {/* Footer avec bouton fermer */}
-              <div className="px-6 py-4 bg-slate-50 border-t border-slate-100">
-                <button
-                  className="w-full py-2.5 rounded-full bg-white hover:bg-purple-400 text-purple-400 hover:text-white font-medium border border-purple-200 hover:border-purple-400 transition-all duration-300"
-                  onClick={() => setShowModal(false)}
-                >
-                  Compris ! 👍
-                </button>
-              </div>
+              {showCloseButton && (
+                <div className="px-6 py-4 bg-slate-50 border-t border-slate-100">
+                  <button
+                    className="w-full py-2.5 rounded-full bg-white hover:bg-purple-400 text-purple-400 hover:text-white font-medium border border-purple-200 hover:border-purple-400 transition-all duration-300"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Compris ! 👍
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

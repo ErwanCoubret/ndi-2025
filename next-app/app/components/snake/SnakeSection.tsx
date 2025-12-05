@@ -98,7 +98,7 @@ export default function SnakeSection({ snakeFlag }: { snakeFlag: boolean }) {
         )}
       </div>
 
-      <Modal showModal={showModal} setShowModal={setShowModal} title={modalTitle}>
+      <Modal showModal={showModal} setShowModal={setShowModal} title={modalTitle} showCloseButton={true}>
         <p className="text-slate-600 text-center">{modalMessage}</p>
       </Modal>
     </div>

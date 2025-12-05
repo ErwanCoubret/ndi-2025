@@ -32,7 +32,7 @@ export default function ChatbotSection({ chatbotFlag }: { chatbotFlag: boolean }
 
         <img src="/emojis/robot.png" alt="robot" className="w-[20rem] opacity-0 lg:opacity-20 left-20 rotate-12 absolute" />
 
-        {/* <img src="/emojis/chat.png" alt="chat" className="w-[15rem] opacity-10 right-20 top-8 -rotate-12 absolute" /> */}
+        <img src="/emojis/chat.png" alt="chat" className="w-[15rem] opacity-10 right-20 top-8 -rotate-12 absolute" />
 
         <p className="text-center text-slate-500 font-medium max-w-2xl z-10">
           Utilisez notre chatbot pour vous informer sur vos moyens de réduire votre dépendance aux technologies à obsolescence programmée dans le cadre scolaire.{" "}

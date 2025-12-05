@@ -30,9 +30,9 @@ export default function MineSwipperSection({ mineFlag }: { mineFlag: boolean }) 
           Déminez l'Obsolescence Programmée ! 💣🔧♻️
         </p>
 
-        {/* <img src="/emojis/bomb.png" alt="bomb" className="w-[20rem] opacity-0 lg:opacity-20 left-20 -rotate-12 absolute" />
+        <img src="/emojis/bomb.png" alt="bomb" className="w-[20rem] opacity-0 lg:opacity-20 left-20 -rotate-12 absolute" />
 
-        <img src="/emojis/triangular-flag.png" alt="flag" className="w-[15rem] opacity-5 lg:opacity-15 right-20 top-8 rotate-12 absolute" /> */}
+        <img src="/emojis/triangular-flag.png" alt="flag" className="w-[15rem] opacity-5 lg:opacity-15 right-20 top-8 rotate-12 absolute" />
 
         <img src="/emojis/recycling-symbol.png" alt="recycling" className="w-[10rem] opacity-0 lg:opacity-10 right-1/4 bottom-10 -rotate-6 absolute" />
 

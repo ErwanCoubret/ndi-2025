@@ -40,7 +40,7 @@ const DEM_NUMBERS = [
 export default function MineSwipperSection() {
   const rows = 5;
   const cols = 5;
-  const bombs = 4;
+  const bombs = 3;
   const [cellSize, setCellSize] = useState((16 / rows) * 50);
 
   const [cellImages, setCellImages] = useState(
@@ -486,6 +486,7 @@ export default function MineSwipperSection() {
           showModal={rule}
           setShowModal={setRule}
           title={"🎮 Règles de TimeBomb"}
+          showCloseButton={true}
         >
           <div className="space-y-3 text-slate-600 text-sm">
             <div className="flex items-start gap-2 p-2 bg-slate-100 rounded-lg">

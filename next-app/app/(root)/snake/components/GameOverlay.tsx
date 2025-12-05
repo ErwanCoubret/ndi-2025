@@ -63,7 +63,7 @@ export function GameOverlay({ gameState, score, onRestart }: GameOverlayProps) {
 
   if (gameState === "idle") {
     return (
-      <Modal showModal={showModal} setShowModal={setShowModal} title="Début de partie">
+      <Modal showModal={showModal} setShowModal={setShowModal} title="Début de partie" showCloseButton={true}>
         <div className="flex flex-col items-center justify-center">
           <p className="mb-4 text-2xl text-slate-500 text-center">
             Appuie sur Espace pour jouer

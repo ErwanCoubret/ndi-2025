@@ -59,7 +59,7 @@ export default function AssoSection() {
           captifs.
         </p>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col lg:flex-row items-center gap-4">
         <Link
           href="https://nird.forge.apps.education.fr/"
           target="_blank"

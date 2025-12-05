@@ -43,7 +43,7 @@ export default function ActivitySection({
 
         <div className="flex flex-col items-center gap-3">
           <div
-            className={`py-2 px-4 w-fit rounded-full border ${
+            className={`py-2 px-4 w-fit rounded-full border hover:rotate-2 hover:scale-105 transition-transform duration-300 ${
               chatbotFlag
                 ? "border-green-500 bg-green-100"
                 : "border-slate-300 bg-slate-200"
@@ -52,13 +52,13 @@ export default function ActivitySection({
             {chatbotFlag ? (
               <FaCheck className="inline text-green-500 mr-2" />
             ) : (
-              <ImCross className="inline text-slate-500 mr-2" />
+              <ImCross className="inline text-slate-500 mr-2 opacity-70" />
             )}
             🤖 Chatbot éducatif
           </div>
 
           <div
-            className={`py-2 px-4 w-fit rounded-full border ${
+            className={`py-2 px-4 w-fit rounded-full border hover:rotate-2 hover:scale-105 transition-transform duration-300 ${
               snakeFlag
                 ? "border-green-500 bg-green-100"
                 : "border-slate-300 bg-slate-200"
@@ -67,13 +67,13 @@ export default function ActivitySection({
             {snakeFlag ? (
               <FaCheck className="inline text-green-500 mr-2" />
             ) : (
-              <ImCross className="inline text-slate-500 mr-2" />
+              <ImCross className="inline text-slate-500 mr-2 opacity-70" />
             )}
             🐍 Snake face aux dilemmes
           </div>
 
           <div
-            className={`py-2 px-4 w-fit rounded-full border ${
+            className={`py-2 px-4 w-fit rounded-full border hover:rotate-2 hover:scale-105 transition-transform duration-300 ${
               mineFlag
                 ? "border-green-500 bg-green-100"
                 : "border-slate-300 bg-slate-200"
@@ -82,7 +82,7 @@ export default function ActivitySection({
             {mineFlag ? (
               <FaCheck className="inline text-green-500 mr-2" />
             ) : (
-              <ImCross className="inline text-slate-500 mr-2" />
+              <ImCross className="inline text-slate-500 mr-2 opacity-70" />
             )}
             💣 Démineur éthique
           </div>

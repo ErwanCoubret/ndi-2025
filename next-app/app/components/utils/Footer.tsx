@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -12,6 +13,15 @@ export default function Footer() {
           <p className="text-slate-500 font-light text-xs mb-2">
             Une équipe 100% TPS
           </p>
+
+          <Image
+            src="/tps.png"
+            alt="Logo TPS"
+            width={170}
+            height={40}
+            className="object-contain select-none"
+            draggable="false"
+          />
         </div>
 
         <div className="flex flex-col text-slate-500 gap-1.5 w-50">

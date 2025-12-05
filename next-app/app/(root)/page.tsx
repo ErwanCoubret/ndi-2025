@@ -5,7 +5,7 @@ import AssoSection from "../components/asso/AssoSection";
 import HeroSection from "../components/hero/HeroSection";
 import MineSwipperSection from "../components/mine-swipper/MineSwipperSection";
 import SnakeSection from "../components/snake/SnakeSection";
-import { Activity, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ActivitySection from "../components/activity/ActivitySection";
 
 export default function Home() {

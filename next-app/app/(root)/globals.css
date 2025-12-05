@@ -30,3 +30,72 @@ body {
   scroll-behavior: smooth;
   @apply text-slate-500;
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+@keyframes wiggle_md {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes navbarTranslateIn {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes navbarTranslateOut {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.animation-fade {
+  animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.animation-fadeOut {
+  animation: fadeOut 0.5s ease-in-out forwards;
+}
+
+.animation-wiggle-fade {
+  animation: fadeIn 2s ease-in-out forwards, wiggle_md 4s ease-in-out infinite;
+}
+
+.animation-navbarTranslateIn {
+  animation: navbarTranslateIn 0.5s ease-in-out forwards;
+}
+
+.animation-navbarTranslateOut {
+  animation: navbarTranslateOut 0.5s ease-in-out forwards;
+}

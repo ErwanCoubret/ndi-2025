@@ -27,6 +27,16 @@ export default function ChatControls({
   onToggleCustomPrompt,
   localModelError,
 }: Props) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Entrée sans Shift envoie le message
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      if (!isLoading && input.trim()) {
+        onSubmit(e as unknown as React.FormEvent);
+      }
+    }
+  };
+
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-3 pt-1">
       <div className="flex gap-3 items-end">
@@ -40,6 +50,7 @@ export default function ChatControls({
           placeholder="Écris ta question sur l'IA..."
           value={input}
           onChange={(e) => onInputChange(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
 
         <div className="flex flex-col items-end gap-2 min-w-[210px]">
